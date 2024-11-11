@@ -1,7 +1,9 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import styles from "./style.module.scss";
 import { gsap } from "gsap";
-export default function Button({
+import { motion } from "framer-motion";
+
+export function Primary_button({
   children,
   hoverBackgroundColor,
   backgroundColor,
@@ -15,8 +17,9 @@ export default function Button({
   const manageMouseEnter = () => {
     gsap.to(circle.current, {
       right: "0%",
-      scale: 1.5,
+      scale: 3,
       duration: 0.4,
+      ease: "power1.inOut",
     });
   };
   const manageMouseLeave = () => {
@@ -24,6 +27,7 @@ export default function Button({
       right: "100%",
       scale: 1,
       duration: 0.4,
+      ease: "power1.inOut",
     });
   };
   return (
@@ -46,13 +50,36 @@ export default function Button({
           className="absolute  "
           style={{
             backgroundColor: hoverBackgroundColor,
-            height: "100%",
-            width: "100%",
+            height: "100px",
+            width: "100px",
             borderRadius: "9999rem",
+            top: "0",
             right: "100%",
           }}
         ></div>
       </div>
     </>
+  );
+}
+
+export function Secondary_button({ children, ...attributes }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div className=" overflow-hidden h-7  ">
+      <button
+        className=""
+        onMouseEnter={(e) => {
+          setHovered(!hovered);
+        }}
+        onMouseLeave={(e) => {
+          setHovered(!hovered);
+        }}
+      >
+        <motion.div {...attributes} animate={{ y: hovered ? "0%" : "-50%" }}>
+          <p>{children}</p>
+          <p>{children}</p>
+        </motion.div>
+      </button>
+    </div>
   );
 }

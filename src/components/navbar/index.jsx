@@ -36,12 +36,13 @@ const SlideTabs = () => {
   );
 };
 
-const Tab = ({ href, children, setPosition }) => {
+const Tab = ({ href, children, setPosition, ...attributes }) => {
   const ref = useRef(null);
   return (
     <a
       ref={ref}
       href={href}
+      {...attributes}
       onMouseEnter={(e) => {
         const { width } = ref.current.getBoundingClientRect();
         setPosition({
