@@ -1,6 +1,6 @@
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef, useState } from "react";
-
+import Destinations from "./Destinations";
 const Example = () => {
   return (
     <div className="bg-neutral-800 ">
@@ -16,7 +16,7 @@ const HorizontalScrollCarousel = () => {
     target: targetRef,
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["3%", "100%"]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 1440]);
   const progress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   return (
@@ -65,6 +65,7 @@ const HorizontalScrollCarousel = () => {
           {" "}
           PROGRESS <span className="text-black font-medium">{count + 1}% </span>
         </motion.p>
+        <Destinations count={count} />
       </div>
     </section>
   );
