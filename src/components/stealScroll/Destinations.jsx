@@ -1,18 +1,15 @@
 import { motion } from "framer-motion";
 
-const AnimatedSteps = ({ count }) => {
-  // Determine the current step based on the count
+const AnimatedSteps = ({ count, ...attributes }) => {
   const currentStep = Math.floor(count / 25) + 1;
 
-  // Define animation settings
   const motionProps = {
     animate: { x: 8 },
-    transition: { duration: 0.15, ease: "easeIn" },
+    transition: { duration: 0.15, ease: "easeOut" },
   };
 
-  // Render steps
   return (
-    <div className="flex gap-3 transition-transform absolute  top-28 left-12">
+    <div {...attributes}>
       {[1, 2, 3, 4].map((step) => (
         <div key={step}>
           {step === currentStep ? (
