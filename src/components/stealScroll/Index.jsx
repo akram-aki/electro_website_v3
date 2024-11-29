@@ -21,10 +21,7 @@ const HorizontalScrollCarousel = () => {
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 1440]);
   const progress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   return (
-    <section
-      ref={targetRef}
-      className="relative h-[900vh] w-full  bg-Background"
-    >
+    <section ref={targetRef} className="relative h-[900vh]   bg-white">
       <div className="sticky  top-0 flex h-screen overflow-hidden w-full ">
         <div className="bg-[#e9e8e4] relative overflow-hidden border border-white h-7 flex items-center mt-20 w-full mx-10 p-1 rounded-full">
           <motion.div
@@ -61,16 +58,25 @@ const HorizontalScrollCarousel = () => {
           ref={targetRef}
           style={{ scrollYProgress }}
           className="text-[#b5b5b5]  font-bold  right-12 top-28 absolute"
-          onUpdate={() => setCount(Math.floor(progress.current))}
+          onUpdate={() =>
+            setCount(() =>
+              progress.current < 50
+                ? Math.floor(progress.current)
+                : Math.ceil(progress.current)
+            )
+          }
         >
           {" "}
-          PROGRESS <span className="text-black font-medium">{count + 1}% </span>
+          PROGRESS <span className="text-black font-medium">{count}% </span>
         </motion.p>
         <Destinations
           className="flex gap-3 absolute  top-28 left-12"
           count={count}
         />
-        <Items className="bg-red-600  w-fit p-8 rounded-xl h-fit  absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
+        <Items
+          count={count}
+          className="grid grid-cols-[2fr_1fr] gap-20 bg-Background overflow-hidden border-2 border-white  w-[93%] rounded-xl h-fit absolute left-1/2 top-[60vh] -translate-x-1/2 -translate-y-1/2"
+        />
       </div>
     </section>
   );

@@ -5,7 +5,10 @@ export default {
     extend: {
       colors: {
         Text: "#dcdcdb",
-        Background: "#f4f4f2",
+        Text2: "#383837",
+        Text3: "#b5b5b5",
+        Text4: "#7b7a79",
+        Background: "#e9e8e4",
       },
     },
   },
