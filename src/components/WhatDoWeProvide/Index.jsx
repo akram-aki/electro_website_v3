@@ -1,5 +1,6 @@
 import React from 'react'
-
+import Events from './Events'
+import LearningEnvironment from './LearningEnvironment'
 function WhatDoWeProvide() {
     return (
         <>
@@ -19,6 +20,11 @@ function WhatDoWeProvide() {
                 </p>
             </div>
             <hr className='border-1 border-[#262625] my-16' />
+            <Events />
+            <hr className='border-1 border-[#262625] my-16' />
+            <LearningEnvironment />
+            <hr className='border-1 border-[#262625] my-16' />
+
         </>
     )
 }

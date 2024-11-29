@@ -1,5 +1,5 @@
 import React from 'react';
-import DownIcon from '../assets/DownIcon.svg'; // Adjust the path as necessary
+import DownIcon from '../../assets/DownIcon.svg'; // Adjust the path as necessary
 
 function Hero() {
     return (

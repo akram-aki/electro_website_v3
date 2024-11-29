@@ -14,7 +14,7 @@ const AnimatedSteps = ({ count, ...attributes }) => {
         <div key={step}>
           {step === currentStep ? (
             <motion.div {...motionProps} className="font-bold text-[#383837]">
-              STEP /{step}/
+              EVENT /{step}/
             </motion.div>
           ) : (
             <p className="text-[#b5b5b5]">/{step}/ </p>
