@@ -1,6 +1,7 @@
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef, useState } from "react";
 import Destinations from "./Destinations";
+import Items from "./Items";
 const Example = () => {
   return (
     <div className="bg-neutral-800 ">
@@ -65,7 +66,11 @@ const HorizontalScrollCarousel = () => {
           {" "}
           PROGRESS <span className="text-black font-medium">{count + 1}% </span>
         </motion.p>
-        <Destinations count={count} />
+        <Destinations
+          className="flex gap-3 absolute  top-28 left-12"
+          count={count}
+        />
+        <Items className="bg-red-600  w-fit p-8 rounded-xl h-fit  absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
       </div>
     </section>
   );
