@@ -1,3 +1,5 @@
 export default function Items({ ...attributes }) {
-  return <div {...attributes}></div>;
+  return (
+    <div {...attributes}></div>
+  );
 }

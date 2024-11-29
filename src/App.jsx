@@ -1,8 +1,8 @@
 import "./App.css";
-import StealScroll from "./components/stealScroll/Index";
 import Header from "./components/Header/Index";
 import Hero from "./components/Hero/Index";
 import WhatDoWeProvide from "./components/WhatDoWeProvide/Index";
+import Events from "./components/Events/Index";
 function App() {
   return (
     <>
@@ -11,7 +11,7 @@ function App() {
         <Hero />
         <div className="h-[400px]"></div>
         <WhatDoWeProvide />
-        <StealScroll />
+        <Events />
       </div>
     </>
   );
