@@ -2,7 +2,7 @@ import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef, useState } from "react";
 import Destinations from "./Destinations";
 import Items from "./Items";
-const Example = () => {
+const Index = () => {
   return (
     <div className="bg-neutral-800 ">
       <HorizontalScrollCarousel />
@@ -22,14 +22,14 @@ const HorizontalScrollCarousel = () => {
   const progress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   return (
     <section ref={targetRef} className="relative h-[900vh]   bg-white">
-      <div className="sticky  top-0 flex h-screen overflow-hidden w-full ">
+      <div className="sticky  top-0 flex h-screen  w-full ">
         <div className="bg-[#e9e8e4] relative overflow-hidden border border-white h-7 flex items-center mt-20 w-full mx-10 p-1 rounded-full">
           <motion.div
             style={{
               x,
             }}
             transition={{ ease: "easeOut", duration: 100 }}
-            className="w-full flex justify-end absolute right-full p-2 rounded-xl   bg-[#262625] overflow-hidden"
+            className="w-full flex justify-end absolute right-full p-2 rounded-xl   bg-[#262625] "
           >
             <motion.div
               style={{
@@ -74,12 +74,12 @@ const HorizontalScrollCarousel = () => {
           count={count}
         />
         <Items
-          count={count}
-          className="grid grid-cols-[2fr_1fr] gap-20 bg-Background overflow-hidden border-2 border-white  w-[93%] rounded-xl h-fit absolute left-1/2 top-[60vh] -translate-x-1/2 -translate-y-1/2"
+          count={Math.floor(count / 25)}
+          className="grid grid-cols-[2fr_1fr] gap-20 bg-Background border-2 border-white  w-[93%] rounded-xl h-[400px] absolute left-1/2 top-[60vh] -translate-x-1/2 -translate-y-1/2"
         />
       </div>
     </section>
   );
 };
 
-export default Example;
+export default Index;
