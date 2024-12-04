@@ -1,23 +1,24 @@
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 export default function Navbar() {
-  return <SlideTabs />;
+  return (
+    <div className="fixed z-50 bottom-3 left-1/2 -translate-x-1/2 ">
+      <SlideTabs />
+    </div>
+  );
 }
 
 const SlideTabs = () => {
   const [position, setPosition] = useState({
     left: 0,
-    width: 0,
-    opacity: 0,
-  });
-  const pos = {
-    left: 0,
     width: "97px",
     opacity: 1,
-  };
+  });
   return (
-    <ul className="relative mx-auto flex w-fit rounded-full border border-[#dad6e3] bg-white  ">
-      <Tab href="/">Home &nbsp;/</Tab>
+    <ul className="relative mx-auto flex w-fit rounded-full border border-Text3 bg-white  ">
+      <Tab setPosition={setPosition} href="/">
+        Home &nbsp;
+      </Tab>
       <Tab setPosition={setPosition} href="/">
         Projects
       </Tab>
@@ -27,10 +28,6 @@ const SlideTabs = () => {
       <Tab setPosition={setPosition} href="/">
         Projects
       </Tab>
-      <Tab setPosition={setPosition} href="/">
-        Support Us
-      </Tab>
-      <Cursor position={pos} />
       <Cursor position={position} />
     </ul>
   );
@@ -51,7 +48,7 @@ const Tab = ({ href, children, setPosition, ...attributes }) => {
           opacity: 1,
         });
       }}
-      className="relative z-10 block cursor-pointer px-3 py-1.5 text-xs uppercase text-white mix-blend-difference md:px-5 md:py-3 md:text-base"
+      className="relative z-10 block cursor-pointer px-3 py-1.5 text-xs uppercase text-white mix-blend-difference md:px-5 md:py-3 md:text-base "
     >
       {children}
     </a>

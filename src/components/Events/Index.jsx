@@ -1,4 +1,4 @@
-import React from "react";
+import { Secondary_button } from "../button/Index";
 import StealScroll from "../stealScroll/Index";
 import DownIcon from "../../assets/DownIcon.svg";
 function Events() {
@@ -15,7 +15,7 @@ function Events() {
           </span>
           <div className="flex mt-16">
             <img src={DownIcon} alt="Down Icon" />
-            <span className="ml-8 font-bold">Check out the full timeline</span>
+            <Secondary_button>Check out the full timeline</Secondary_button>
           </div>
         </div>
       </div>

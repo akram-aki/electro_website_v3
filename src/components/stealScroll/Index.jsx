@@ -3,11 +3,7 @@ import { useRef, useState } from "react";
 import Destinations from "./Destinations";
 import Items from "./Items";
 const Index = () => {
-  return (
-    <div className="bg-neutral-800 ">
-      <HorizontalScrollCarousel />
-    </div>
-  );
+  return <HorizontalScrollCarousel />;
 };
 
 const HorizontalScrollCarousel = () => {
@@ -21,7 +17,7 @@ const HorizontalScrollCarousel = () => {
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 1440]);
   const progress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   return (
-    <section ref={targetRef} className="relative h-[900vh]   bg-white">
+    <section ref={targetRef} className="relative h-[900vh]   ">
       <div className="sticky  top-0 flex h-screen  w-full ">
         <div className="bg-[#e9e8e4] relative overflow-hidden border border-white h-7 flex items-center mt-20 w-full mx-10 p-1 rounded-full">
           <motion.div
@@ -75,7 +71,7 @@ const HorizontalScrollCarousel = () => {
         />
         <Items
           count={Math.floor(count / 25)}
-          className="grid grid-cols-[2fr_1fr] gap-20 bg-Background border-2 border-white  w-[93%] rounded-xl h-[400px] absolute left-1/2 top-[60vh] -translate-x-1/2 -translate-y-1/2"
+          className="grid grid-cols-[2fr_1fr] gap-20 border-2 border-white bg-Background w-[93%] rounded-xl h-[400px] absolute left-1/2 top-[60vh] -translate-x-1/2 -translate-y-1/2"
         />
       </div>
     </section>

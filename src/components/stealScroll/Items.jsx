@@ -1,5 +1,4 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useRef } from "react";
 
 const description = [
   {
