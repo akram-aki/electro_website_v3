@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const AnimatedSteps = ({ count, ...attributes }) => {
+const AnimatedSteps = ({count, ...attributes }) => {
   const currentStep = Math.floor(count / 25) + 1;
 
   const motionProps = {

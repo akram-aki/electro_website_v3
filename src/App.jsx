@@ -5,6 +5,7 @@ import WhatDoWeProvide from "./components/WhatDoWeProvide/Index";
 import Events from "./components/Events/Index";
 import Nav from "./components/navbar/index";
 import Markee from "./components/Markee/Index";
+import Projects from "./components/Projects/Index";
 function App() {
   return (
     <>
@@ -15,6 +16,7 @@ function App() {
         <Markee />
         <WhatDoWeProvide />
         <Events />
+        <Projects />
       </div>
     </>
   );

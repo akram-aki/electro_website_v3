@@ -11,7 +11,7 @@ function Events() {
         </h1>
         <div className="w-6/12">
           <span className="font-semibold text-[#797979] text-[22px]">
-            Check out the most notable Events hosted by Electro Scientific Club
+            Check out the most notable events hosted by Electro Scientific Club
           </span>
           <div className="flex mt-16">
             <img src={DownIcon} alt="Down Icon" />

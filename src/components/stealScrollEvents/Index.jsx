@@ -2,7 +2,7 @@ import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef, useState } from "react";
 import Destinations from "./Destinations";
 import Items from "./Items";
-const Index = () => {
+const Index = ({t}) => {
   return <HorizontalScrollCarousel />;
 };
 
@@ -68,6 +68,7 @@ const HorizontalScrollCarousel = () => {
         <Destinations
           className="flex gap-3 absolute  top-28 left-12"
           count={count}
+          type="Eventssas"
         />
         <Items
           count={Math.floor(count / 25)}
