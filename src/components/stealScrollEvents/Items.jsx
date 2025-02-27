@@ -126,7 +126,7 @@ export default function Items({ count, ...attributes }) {
                   : count === 1
                   ? "/IMG_0110.JPG"
                   : count === 2
-                  ? "https://i.pinimg.com/236x/05/a5/59/05a559f70b09f92d6c473de4e6b7212b.jpg"
+                  ? "/IMG_20240516_042629_313.jpg"
                   : "https://i.pinimg.com/236x/9e/ef/a6/9eefa6a5680c69a3dd84904d474f6a0e.jpg"
               }
               className="object-cover rounded-2xl h-full w-full"
