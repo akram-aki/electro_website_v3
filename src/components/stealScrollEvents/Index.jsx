@@ -17,7 +17,7 @@ const HorizontalScrollCarousel = () => {
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 1440]);
   const progress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   return (
-    <section ref={targetRef} className="relative h-[900vh]   ">
+    <section ref={targetRef} className="relative h-[430vh]   ">
       <div className="sticky  top-0 flex h-screen  w-full ">
         <div className="bg-[#e9e8e4] relative overflow-hidden border border-white h-7 flex items-center mt-20 w-full mx-10 p-1 rounded-full">
           <motion.div
@@ -72,7 +72,7 @@ const HorizontalScrollCarousel = () => {
         />
         <Items
           count={Math.floor(count / 25)}
-          className="xl:grid grid-cols-[1.5fr_1fr] gap-20 border-2 border-white bg-Background w-[93%] rounded-xl xl:h-[400px] h-[690px] absolute left-1/2 top-[50vh] -translate-x-1/2 -translate-y-1/2"
+          className="xl:grid grid-cols-[1.5fr_1fr] gap-20 border-2 border-white bg-Background w-[93%] rounded-xl xl:h-[400px] h-[600px] absolute left-1/2 top-[50vh] -translate-x-1/2 -translate-y-1/2"
         />
       </div>
     </section>

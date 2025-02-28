@@ -21,6 +21,7 @@ function Header() {
               width={21}
               height={24}
               alt="Language Logo"
+              className="md:block hidden"
             />
             <a className="ml-10 text-[#262625] text-[18px] font-semibold w-10/12">
               Arabic{" "}

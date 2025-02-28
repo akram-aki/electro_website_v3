@@ -5,11 +5,10 @@ function WhatDoWeProvide() {
     return (
         <>
             <div className='xl:flex items-start'>
-                <div className='flex items-center justify-between xl:w-6/12 mr-10'>
-                    <span className='text-[#797877] text-[17px] xl:w-2/12'>/SERVICE/</span>
-                    <h2 className='text-[#262625] xl:text-[43px] text-2xl font-semibold xl:w-10/12 ml-auto'>
-                        What do we provide?
-                    </h2>
+                <div className="flex items-center justify-between xl:w-6/12 mr-10 xl:mr-0">
+                    <span className='text-[#797877] text-[17px] xl:w-4/12'>/01/</span>
+                    <h3 className='text-[#262625] text-[24px] font-semibold xl:w-8/12'> What do we provide?
+                    </h3>
                 </div>
                 <p className='xl:w-6/12 text-[#797877] xl:text-[23px] font-semibold mt-8'>
                     Our purpose is to provide an appropriate environment for all passionate, creative, motivated and talented students.

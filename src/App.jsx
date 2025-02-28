@@ -24,8 +24,9 @@ function App() {
         <WhatDoWeProvide />
         <Events />
         {/* <Projects /> */}
-        <Footer />
       </div>
+      <Footer />
+
     </>
   );
 }

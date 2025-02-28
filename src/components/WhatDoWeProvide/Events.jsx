@@ -24,8 +24,6 @@ function Events() {
                     <h4 className='text-[#9F8787] mb-8 mt-4'>Informative, fun, and career-building events</h4>
                     <p className='text-[#797877] mb-8'>
                         We very often host events that include workshops, outside visits, exhibitions, internships, and much more;
-                        <hr />
-                        <hr />
                         We aim to provide with the help of our members events that benefit attendees in more than one way.
                     </p>
                     <ul className="space-y-6">
