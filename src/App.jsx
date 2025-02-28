@@ -10,12 +10,14 @@ import Footer from "./components/Footer/Index";
 function App() {
   return (
     <>
-      <div className=" mt-16 mx-16">
+      <div className="xl:mt-16 xl:mx-16 mt-8 mx-6">
         <Header />
-        <Nav></Nav>
-        <div className="my-[220px]">
+        <div className="hidden"><Nav /></div>
+        <div className="xl:my-[220px] my-[110px] flex flex-col">
           <Hero />
-          <Markee />
+          <div className="mx-auto xl:mx-0">
+            <Markee />
+          </div>
 
         </div>
 

@@ -13,7 +13,7 @@ const HorizontalScrollCarousel = () => {
     target: targetRef,
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["3%", "100%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["2%", "100%"]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 1440]);
   const progress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   return (
@@ -72,7 +72,7 @@ const HorizontalScrollCarousel = () => {
         />
         <Items
           count={Math.floor(count / 25)}
-          className="grid grid-cols-[1.5fr_1fr] gap-20 border-2 border-white bg-Background w-[93%] rounded-xl h-[400px] absolute left-1/2 top-[50vh] -translate-x-1/2 -translate-y-1/2"
+          className="xl:grid grid-cols-[1.5fr_1fr] gap-20 border-2 border-white bg-Background w-[93%] rounded-xl xl:h-[400px] h-[690px] absolute left-1/2 top-[50vh] -translate-x-1/2 -translate-y-1/2"
         />
       </div>
     </section>

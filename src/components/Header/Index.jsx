@@ -29,7 +29,7 @@ function Header() {
         </div>
         <div className="w-1/12" />
       </div>
-      <div className="h-[107px]" />
+      <div className="xl:h-[107px]" />
     </>
   );
 }

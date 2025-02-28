@@ -5,7 +5,7 @@ import { Secondary_button } from "../button/Index";
 
 function Hero() {
   return (
-    <div className=" relative grid grid-cols-[6fr_6fr] gap-32 mt-10 mb-10">
+    <div className="relative grid xl:grid-cols-[6fr_6fr] gap-32 mt-10 mb-10">
       <div
         style={{
           position: "absolute",
@@ -20,11 +20,11 @@ function Hero() {
         }}
         className="z-0"
       ></div>
-      <h1 className="font-bold text-[44px] leading-tight z-50 text-main">
+      <h1 className="font-bold text-4xl xl:text-[44px] leading-tight z-50 text-main">
         We are a <span className="text-[#70a939]">quick-growing </span>
         community of highly passionate and motivated members.
       </h1>
-      <div>
+      <div className="">
         <p className="uppercase text-[#4F4F4D]">
           <span className="text-[#96C390]"> ELECTRO CLUB</span> IS A
           student-driven space at the university of boumerdes, algeria.
@@ -33,9 +33,13 @@ function Hero() {
           founded in 2011, we exceed at hosting events, sharing our passion with
           members, and showcasing our ELECTRONICS CREATIONS.
         </p>
-        <div className="flex mt-14 gap-8">
-          <img src={DownIcon} alt="Down Icon" />
-          <Secondary_button> Check us Out</Secondary_button>
+        <div className="flex mt-14 gap-8 justify-center mr-10 xl:justify-start">
+          <Secondary_button>
+            <div className="flex gap-8">
+              <img src={DownIcon} alt="Down Icon" />
+              Check us out!
+            </div>
+          </Secondary_button>
         </div>
       </div>
     </div>

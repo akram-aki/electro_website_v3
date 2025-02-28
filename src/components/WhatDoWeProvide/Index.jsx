@@ -4,14 +4,14 @@ import LearningEnvironment from './LearningEnvironment'
 function WhatDoWeProvide() {
     return (
         <>
-            <div className='flex items-start'>
-                <div className='flex items-center w-6/12'>
-                    <span className='text-[#797877] text-[17px] w-2/12'>/SERVICE/</span>
-                    <h2 className='text-[#262625] text-[43px] font-semibold w-10/12'>
+            <div className='xl:flex items-start'>
+                <div className='flex items-center justify-between xl:w-6/12 mr-10'>
+                    <span className='text-[#797877] text-[17px] xl:w-2/12'>/SERVICE/</span>
+                    <h2 className='text-[#262625] xl:text-[43px] text-2xl font-semibold xl:w-10/12 ml-auto'>
                         What do we provide?
                     </h2>
                 </div>
-                <p className='w-6/12 text-[#797877] text-[23px] font-semibold mt-8'>
+                <p className='xl:w-6/12 text-[#797877] xl:text-[23px] font-semibold mt-8'>
                     Our purpose is to provide an appropriate environment for all passionate, creative, motivated and talented students.
                     Meet us now at the University of Boumerdes or at the dozens of events and workshops throughout the year.
 

@@ -65,7 +65,7 @@ export default function Items({ count, ...attributes }) {
             className="h-full w-full"
           >
 
-            <h1 className="text-3xl font-bold mb-16">
+            <h1 className="text-3xl font-bold xl:mb-16 mb-9">
               {count === 0
                 ? "Arduino Workshop"
                 : count === 1
@@ -75,7 +75,7 @@ export default function Items({ count, ...attributes }) {
                     : "External Events"}
             </h1>
 
-            <p className="font-semibold text-Text2">
+            <p className="font-semibold text-Text2 text-sm xl:text-lg">
               {count === 0
                 ? description[0].title
                 : count === 1
@@ -84,7 +84,7 @@ export default function Items({ count, ...attributes }) {
                     ? description[2].title
                     : description[3].title}
             </p>
-            <ul className="list-disc p-4 grid gap-2 mb-16">
+            <ul className="list-disc p-4 grid gap-2 xl:mb-16 text-sm xl:text-lg" >
               <li className="text-Text4">
                 {count === 0
                   ? description[0].desc1
@@ -116,7 +116,7 @@ export default function Items({ count, ...attributes }) {
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="relative h-full w-fit overflow-hidden ">
+      <div className="relative h-full w-fit overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={count} // Unique key per `count` value
@@ -138,9 +138,9 @@ export default function Items({ count, ...attributes }) {
                     ? "/IMG_0110.JPG"
                     : count === 2
                       ? "/IMG_20240516_042629_313.jpg"
-                      : "/tekkid.jfif"
+                      : "/TEKKID.png"
               }
-              className="object-cover rounded-2xl h-full w-full"
+              className="object-cover rounded-2xl xl:h-full xl:w-full"
             />
           </motion.div>
         </AnimatePresence>

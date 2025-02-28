@@ -13,15 +13,15 @@ function LearningEnvironment() {
     }
     return (
         <>
-            <div className="flex items-start">
-                <div className="flex items-center w-6/12">
-                    <span className='text-[#797877] text-[17px] w-4/12'>/02/</span>
-                    <h3 className='text-[#262625] text-[24px] font-semibold w-8/12'> LEARNING ENVIORNMENT
+            <div className="xl:flex items-start">
+                <div className="flex items-center justify-between xl:w-6/12 mr-10 xl:mr-0">
+                    <span className='text-[#797877] text-[17px] xl:w-4/12'>/02/</span>
+                    <h3 className='text-[#262625] text-[24px] font-semibold xl:w-8/12'> LEARNING ENVIORNMENT
                     </h3>
                 </div>
 
-                <div className="w-6/12 text-[23px] font-semibold">
-                    <h4 className='text-[#9F8787] mb-8'>Highly energetic, safe, and passionate space</h4>
+                <div className="xl:w-6/12 xl:text-[23px] font-semibold">
+                    <h4 className='text-[#9F8787] mb-8 mt-4'>Highly energetic, safe, and passionate space</h4>
                     <p className='text-[#686868] mb-8'>
                         We offer a space filled with passion, motivation, and energy!
                         <br />
