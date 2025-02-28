@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Secondary_button } from "../button/Index";
-import DownIcon from "../../assets/DownIcon.svg"
-import RightArrow from "../../assets/RightArrow.svg"
+import RightArrow from "../../assets/RightArrow.svg";
+
 const description = [
   {
     title:
@@ -9,104 +10,61 @@ const description = [
     desc1:
       "Attendees get to experience beginner friendly introduction and hands-on experience by motivated and experienced mentors.",
     desc2:
-      "Additional features: we advice you on the additional features you can add to your website. This could be animations, transitions, additional sections, etc.",
+      "Additional features: we advise you on the additional features you can add to your website. This could be animations, transitions, additional sections, etc.",
   },
-
   {
     title:
-      "The yearly Welcome Day events are introductory events which welcome all new members to the club by providing a brief presentation which introduces the club, its members, departments, and goals for the year.",
+      "The yearly Welcome Day events are introductory events which welcome all new members to the club...",
     desc1:
-      "Members also get to enjoy fun activites and mini games to break ice and celebrate the beginning of the new year.",
+      "Members also get to enjoy fun activities and mini games to break ice and celebrate the beginning of the new year.",
     desc2:
-      "All attendees who later attest to their learning by creating a project obtain a certificate signed by Electro Scientific President",
+      "All attendees who later attest to their learning by creating a project obtain a certificate signed by Electro Scientific President.",
   },
-
   {
     title:
-      "The 2024 Electro Club Chess Competition was the club's first national chess competition with more than 20 participants. The competition consisted of 2 phases:",
+      "The 2024 Electro Club Chess Competition was the club's first national chess competition with more than 20 participants.",
     desc1:
       "A group stage phase where members played fierce chess matches to climb the ladder and finally qualify to the final.",
     desc2:
-      "The final match, watched by faculty students and staff, where the 2 finalists battled in an hour long match.",
+      "The final match, watched by faculty students and staff, where the 2 finalists battled in an hour-long match.",
   },
-
   {
     title:
       "Multiple external visits that partake in different universities around the country.",
     desc1:
-      "We make sure our club is exposed across different wilayas and in different universities. Whenever possible, we display our hard effort via stands across multiple events in multiple universities",
+      "We make sure our club is exposed across different wilayas and in different universities.",
     desc2:
-      "We also offer vists to Middle Schools, High Schools, and foster houses. Making sure all age groups get knowledge on everything electronics."
-  },
-
-  {
-    title:
-      "The initial phase usually consist of choosing a design, then deciding the appearance, content, visual effects and additional features of the website and we will give you a budget proposal.",
-    desc1:
-      "Choosing a design/template: we do not design from scratch. We use existing website and design layout as reference and recreate a new system that matches your business image.",
-    desc2:
-      "Additional features: we advice you on the additional features you can add to your website. This could be animations, transitions, additional sections, etc.",
+      "We also offer visits to Middle Schools, High Schools, and foster houses, ensuring all age groups get knowledge on electronics.",
   },
 ];
+
 export default function Items({ count, ...attributes }) {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div {...attributes}>
       <div className="p-6 grid">
         <AnimatePresence mode="wait">
           <motion.div
-            key={count} // Unique key per `count` value
-            initial={{ opacity: 1, x: 10 }} // Proper initial state
-            animate={{ opacity: 1, x: 0 }} // Enter animation
-            exit={{ opacity: 0, x: 10 }} // Exit animation
-            transition={{
-              opacity: { duration: 0.1, ease: "easeInOut" }, // Shared transition for `opacity`
-              x: { duration: 0.2 }, // Shared for `x`
-            }}
+            key={count}
+            initial={{ opacity: 1, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            transition={{ opacity: { duration: 0.1, ease: "easeInOut" }, x: { duration: 0.2 } }}
             className="h-full w-full"
           >
-
             <h1 className="text-3xl font-bold xl:mb-16 mb-9">
-              {count === 0
-                ? "Arduino Workshop"
-                : count === 1
-                  ? "Welcome Day"
-                  : count === 2
-                    ? "Chess Competition"
-                    : "External Events"}
+              {count === 0 ? "Arduino Workshop" : count === 1 ? "Welcome Day" : count === 2 ? "Chess Competition" : "External Events"}
             </h1>
-
             <p className="font-semibold text-Text2 text-sm xl:text-lg">
-              {count === 0
-                ? description[0].title
-                : count === 1
-                  ? description[1].title
-                  : count === 2
-                    ? description[2].title
-                    : description[3].title}
+              {description[count]?.title}
             </p>
-            <ul className="list-disc p-4 grid gap-2 xl:mb-16 text-sm xl:text-lg" >
-              <li className="text-Text4 hidden md:block">
-                {count === 0
-                  ? description[0].desc1
-                  : count === 1
-                    ? description[1].desc1
-                    : count === 2
-                      ? description[2].desc1
-                      : description[3].desc1}
-              </li>
-
-              <li className="text-Text4 hidden md:block">
-                {count === 0
-                  ? description[0].desc2
-                  : count === 1
-                    ? description[1].desc2
-                    : count === 2
-                      ? description[2].desc2
-                      : description[3].desc2}
-              </li>
+            <ul className="list-disc p-4 grid gap-2 xl:mb-16 text-sm xl:text-lg hidden md:block">
+              <li className="text-Text4">{description[count]?.desc1}</li>
+              <li className="text-Text4">{description[count]?.desc2}</li>
             </ul>
             <div className="flex gap-8">
-              <Secondary_button>
+              <Secondary_button onClick={() => setShowModal(true)}>
                 <div className="flex gap-8 items-center">
                   <p>More details</p>
                   <img src={RightArrow} alt="" className="w-8 h-8" />
@@ -116,17 +74,15 @@ export default function Items({ count, ...attributes }) {
           </motion.div>
         </AnimatePresence>
       </div>
+
       <div className="relative h-full w-fit overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
-            key={count} // Unique key per `count` value
-            initial={{ opacity: 0, x: 400 }} // Proper initial state
-            animate={{ opacity: 1, x: 0 }} // Enter animation
-            exit={{ opacity: 0, x: 400 }} // Exit animation
-            transition={{
-              opacity: { duration: 0.1, ease: "easeInOut" }, // Shared transition for `opacity`
-              x: { duration: 0.2 }, // Shared for `x`
-            }}
+            key={count}
+            initial={{ opacity: 0, x: 400 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 400 }}
+            transition={{ opacity: { duration: 0.1, ease: "easeInOut" }, x: { duration: 0.2 } }}
             className="h-full w-full"
           >
             <img
@@ -145,6 +101,22 @@ export default function Items({ count, ...attributes }) {
           </motion.div>
         </AnimatePresence>
       </div>
+
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-0 flex justify-center items-center z-50">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md"
+          >
+            <h2 className="text-xl font-bold mb-4">More Details</h2>
+            <p className="text-sm mb-2">{description[count]?.desc1}</p>
+            <p className="text-sm mb-4">{description[count]?.desc2}</p>
+            <button onClick={() => setShowModal(false)} className="bg-red-500 text-white px-4 py-2 rounded">Close</button>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }
