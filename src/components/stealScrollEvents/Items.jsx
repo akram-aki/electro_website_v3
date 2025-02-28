@@ -85,7 +85,7 @@ export default function Items({ count, ...attributes }) {
                     : description[3].title}
             </p>
             <ul className="list-disc p-4 grid gap-2 xl:mb-16 text-sm xl:text-lg" >
-              <li className="text-Text4">
+              <li className="text-Text4 hidden md:block">
                 {count === 0
                   ? description[0].desc1
                   : count === 1
@@ -95,7 +95,7 @@ export default function Items({ count, ...attributes }) {
                       : description[3].desc1}
               </li>
 
-              <li className="text-Text4">
+              <li className="text-Text4 hidden md:block">
                 {count === 0
                   ? description[0].desc2
                   : count === 1

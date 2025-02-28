@@ -6,9 +6,10 @@ function WhatDoWeProvide() {
         <>
             <div className='xl:flex items-start'>
                 <div className="flex items-center justify-between xl:w-6/12 mr-10 xl:mr-0">
-                    <span className='text-[#797877] text-[17px] xl:w-4/12'>/01/</span>
-                    <h3 className='text-[#262625] text-[24px] font-semibold xl:w-8/12'> What do we provide?
-                    </h3>
+                    <span className='text-[#797877] text-[17px] xl:w-4/12'>/00/</span>
+                    <h1 className="xl:w-5/12 font-semibold text-[#262525] xl:text-[39px] text-xl xl:mb-0">
+                        What do we provide?
+                    </h1>
                 </div>
                 <p className='xl:w-6/12 text-[#797877] xl:text-[23px] font-semibold mt-8'>
                     Our purpose is to provide an appropriate environment for all passionate, creative, motivated and talented students.

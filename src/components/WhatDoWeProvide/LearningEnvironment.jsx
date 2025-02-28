@@ -16,8 +16,9 @@ function LearningEnvironment() {
             <div className="xl:flex items-start">
                 <div className="flex items-center justify-between xl:w-6/12 mr-10 xl:mr-0">
                     <span className='text-[#797877] text-[17px] xl:w-4/12'>/02/</span>
-                    <h3 className='text-[#262625] text-[19px] font-semibold xl:w-8/12'> LEARNING ENVIRONMENT
-                    </h3>
+                    <h1 className="xl:w-5/12 font-semibold text-[#262525] xl:text-[35px] text-2xl xl:mb-0">
+                        ENVIRONMENT
+                    </h1>
                 </div>
                 <div className="xl:w-6/12 xl:text-[23px] font-semibold">
                     <h4 className='text-[#9F8787] mb-8 mt-4'>Highly energetic, safe, and passionate space</h4>

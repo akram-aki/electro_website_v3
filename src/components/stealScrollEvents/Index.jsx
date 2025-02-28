@@ -53,7 +53,7 @@ const HorizontalScrollCarousel = () => {
         <motion.p
           ref={targetRef}
           style={{ scrollYProgress }}
-          className="text-[#b5b5b5]  font-bold  right-12 top-28 absolute"
+          className="text-[#b5b5b5]  font-bold  right-12 top-28 absolute "
           onUpdate={() =>
             setCount(() =>
               progress.current < 50
@@ -63,7 +63,7 @@ const HorizontalScrollCarousel = () => {
           }
         >
           {" "}
-          PROGRESS <span className="text-black font-medium">{count}% </span>
+          <span className="hidden md:block">PROGRESS</span> <span className="text-black font-medium">{count}% </span>
         </motion.p>
         <Destinations
           className="flex gap-3 absolute  top-28 left-12"
@@ -72,7 +72,7 @@ const HorizontalScrollCarousel = () => {
         />
         <Items
           count={Math.floor(count / 25)}
-          className="xl:grid grid-cols-[1.5fr_1fr] gap-20 border-2 border-white bg-Background w-[93%] rounded-xl xl:h-[400px] h-[600px] absolute left-1/2 top-[50vh] -translate-x-1/2 -translate-y-1/2"
+          className="xl:grid grid-cols-[1.5fr_1fr] gap-20 border-2 border-white bg-Background w-[93%] rounded-xl xl:h-[400px] h-[400px] absolute left-1/2 top-[50vh] -translate-x-1/2 -translate-y-1/2"
         />
       </div>
     </section>
