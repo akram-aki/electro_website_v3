@@ -6,17 +6,23 @@ import Events from "./components/Events/Index";
 import Nav from "./components/navbar/index";
 import Markee from "./components/Markee/Index";
 import Projects from "./components/Projects/Index";
+import Footer from "./components/Footer/Index";
 function App() {
   return (
     <>
       <div className=" mt-16 mx-16">
         <Header />
         <Nav></Nav>
-        <Hero />
-        <Markee />
+        <div className="my-[220px]">
+          <Hero />
+          <Markee />
+
+        </div>
+
         <WhatDoWeProvide />
         <Events />
-        <Projects />
+        {/* <Projects /> */}
+        <Footer />
       </div>
     </>
   );

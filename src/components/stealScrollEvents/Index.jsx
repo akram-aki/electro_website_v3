@@ -2,7 +2,7 @@ import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef, useState } from "react";
 import Destinations from "./Destinations";
 import Items from "./Items";
-const Index = ({t}) => {
+const Index = ({ t }) => {
   return <HorizontalScrollCarousel />;
 };
 
@@ -72,7 +72,7 @@ const HorizontalScrollCarousel = () => {
         />
         <Items
           count={Math.floor(count / 25)}
-          className="grid grid-cols-[2fr_1fr] gap-20 border-2 border-white bg-Background w-[93%] rounded-xl h-[400px] absolute left-1/2 top-[60vh] -translate-x-1/2 -translate-y-1/2"
+          className="grid grid-cols-[1.5fr_1fr] gap-20 border-2 border-white bg-Background w-[93%] rounded-xl h-[400px] absolute left-1/2 top-[50vh] -translate-x-1/2 -translate-y-1/2"
         />
       </div>
     </section>

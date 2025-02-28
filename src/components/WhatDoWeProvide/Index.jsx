@@ -11,8 +11,7 @@ function WhatDoWeProvide() {
                         What do we provide?
                     </h2>
                 </div>
-                <div className='w-1/12' />
-                <p className='w-5/12 text-[#797877] text-[23px] font-semibold'>
+                <p className='w-6/12 text-[#797877] text-[23px] font-semibold mt-8'>
                     Our purpose is to provide an appropriate environment for all passionate, creative, motivated and talented students.
                     Meet us now at the University of Boumerdes or at the dozens of events and workshops throughout the year.
 
