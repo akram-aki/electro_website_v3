@@ -1,23 +1,58 @@
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef, useState } from "react";
 import Destinations from "./Destinations";
-import Items from "./Items";
-const Index = ({t}) => {
+import ProjectCard from "./ProjectCard";
+const Index = () => {
   return <HorizontalScrollCarousel />;
 };
+const projects = [
+  {
+    projectTitle: "Bluetooth-Controlled Car with HC-05 Module",
+    projectAuthor: "Youcef Boubidi",
+    projectImg: "arduinoCar.png"
+  },
+  {
+    projectTitle: "Smart Plant Watering with Arduino IOT Cloud",
+    projectAuthor: "Youcef Boubidi",
+    projectImg: "smartPlantWatering.png"
+  },
+  {
+    projectTitle: "Cryptocurrency tracker with the GIGA Display Shield",
+    projectAuthor: "Youcef Boubidi",
+    projectImg: "crypto.png"
+  },
+  {
+    projectTitle: "Bluetooth-Controlled Car with HC-05 Module",
+    projectAuthor: "Youcef Boubidi",
+    projectImg: "arduinoCar.png"
+  },
+  {
+    projectTitle: "Smart Plant Watering with Arduino IOT Cloud",
+    projectAuthor: "Youcef Boubidi",
+    projectImg: "smartPlantWatering.png"
+  },
+  {
+    projectTitle: "Cryptocurrency tracker with the GIGA Display Shield",
+    projectAuthor: "Youcef Boubidi",
+    projectImg: "crypto.png"
+  },
+
+]
 
 const HorizontalScrollCarousel = () => {
   const targetRef = useRef(null);
   const [count, setCount] = useState(0);
   const { scrollYProgress } = useScroll({
     target: targetRef,
+
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["3%", "100%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["3%", "95%"]);
+  const x2 = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 1440]);
   const progress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   return (
-    <section ref={targetRef} className="relative h-[900vh]   ">
+    <section ref={targetRef} className="relative h-[400vh]">
       <div className="sticky  top-0 flex h-screen  w-full ">
         <div className="bg-[#e9e8e4] relative overflow-hidden border border-white h-7 flex items-center mt-20 w-full mx-10 p-1 rounded-full">
           <motion.div
@@ -70,13 +105,48 @@ const HorizontalScrollCarousel = () => {
           count={count}
           type="Eventssas"
         />
-        <Items
-          count={Math.floor(count / 25)}
-          className="grid grid-cols-[2fr_1fr] gap-20 border-2 border-white bg-Background w-[93%] rounded-xl h-[400px] absolute left-1/2 top-[60vh] -translate-x-1/2 -translate-y-1/2"
-        />
+        <div className="absolute left-0 top-28 w-full h-[88vh] flex items-center justify-start overflow-hidden">
+          <Projects style={{ x: x2 }} />
+        </div>
       </div>
     </section>
   );
+
 };
 
+const Projects = ({ ...attributes }) => {
+  return (
+    <motion.div
+      className="flex flex-shrink-0 gap-16 pr-16 min-w-max"
+      {...attributes}
+    >
+      {projects.map((project, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            transition: {
+              type: "spring",
+              stiffness: 50,
+              delay: index * 0.1
+            }
+          }}
+          viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="flex-shrink-0"
+        >
+          <ProjectCard
+            projectImg={project.projectImg}
+            projectAuthor={project.projectAuthor}
+            projectTitle={project.projectTitle}
+          />
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+};
 export default Index;

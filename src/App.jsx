@@ -23,7 +23,7 @@ function App() {
 
         <WhatDoWeProvide />
         <Events />
-        {/* <Projects /> */}
+        <Projects />
       </div>
       <Footer />
 

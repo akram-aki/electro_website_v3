@@ -5,6 +5,8 @@ import RightArrow from "../../assets/RightArrow.svg";
 
 const description = [
   {
+    header:
+      "Arduino Workshop",
     title:
       "Yearly Arduino Workshops which cover all fundamentals! basics, actuators, sensors, displays, and communications. ",
     desc1:
@@ -13,6 +15,8 @@ const description = [
       "Additional features: we advise you on the additional features you can add to your website. This could be animations, transitions, additional sections, etc.",
   },
   {
+    header:
+      "Welcome Day",
     title:
       "The yearly Welcome Day events are introductory events which welcome all new members to the club...",
     desc1:
@@ -21,6 +25,8 @@ const description = [
       "All attendees who later attest to their learning by creating a project obtain a certificate signed by Electro Scientific President.",
   },
   {
+    header:
+      "Chess Competition",
     title:
       "The 2024 Electro Club Chess Competition was the club's first national chess competition with more than 20 participants.",
     desc1:
@@ -29,6 +35,8 @@ const description = [
       "The final match, watched by faculty students and staff, where the 2 finalists battled in an hour-long match.",
   },
   {
+    header:
+      "External Visits",
     title:
       "Multiple external visits that partake in different universities around the country.",
     desc1:
@@ -53,24 +61,34 @@ export default function Items({ count, ...attributes }) {
             transition={{ opacity: { duration: 0.1, ease: "easeInOut" }, x: { duration: 0.2 } }}
             className="h-full w-full"
           >
-            <h1 className="text-3xl font-bold xl:mb-16 mb-9">
-              {count === 0 ? "Arduino Workshop" : count === 1 ? "Welcome Day" : count === 2 ? "Chess Competition" : "External Events"}
-            </h1>
-            <p className="font-semibold text-Text2 text-sm xl:text-lg">
-              {description[count]?.title}
-            </p>
-            <ul className="list-disc p-4 grid gap-2 xl:mb-16 text-sm xl:text-lg hidden md:block">
-              <li className="text-Text4">{description[count]?.desc1}</li>
-              <li className="text-Text4">{description[count]?.desc2}</li>
-            </ul>
-            <div className="flex gap-8">
-              <Secondary_button onClick={() => setShowModal(true)}>
-                <div className="flex gap-8 items-center">
-                  <p>More details</p>
-                  <img src={RightArrow} alt="" className="w-8 h-8" />
-                </div>
-              </Secondary_button>
-            </div>
+            {count < 4 ?
+              (<>
+                <h1 className="text-3xl font-bold xl:mb-16 mb-9">
+                  {description[count].header}
+                </h1>
+                <p className="font-semibold text-Text2 text-sm xl:text-lg">
+                  {description[count]?.title}
+                </p>
+                <ul className="list-disc p-4  gap-2 xl:mb-16 text-sm xl:text-lg hidden md:block">
+
+                  <li className="text-Text4">{description[count]?.desc1}</li>
+                  <li className="text-Text4">{description[count]?.desc2}</li>
+
+                </ul>
+              </>) : (
+                <h1>AA</h1>
+              )
+            }
+            {count < 4 && (
+              <div className="flex gap-8">
+                <Secondary_button onClick={() => setShowModal(true)}>
+                  <div className="flex gap-8 items-center">
+                    <p>More details</p>
+                    <img src={RightArrow} alt="" className="w-8 h-8" />
+                  </div>
+                </Secondary_button>
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -85,38 +103,43 @@ export default function Items({ count, ...attributes }) {
             transition={{ opacity: { duration: 0.1, ease: "easeInOut" }, x: { duration: 0.2 } }}
             className="h-full w-full"
           >
-            <img
-              alt={count === 2 ? "image" : count === 3 ? "diii" : "idks"}
-              src={
-                count === 0
-                  ? "/IMG_0110.JPG"
-                  : count === 1
+            {count < 4 && (
+              <img
+                alt={count === 2 ? "image" : count === 3 ? "diii" : "idks"}
+                src={
+                  count === 0
                     ? "/IMG_0110.JPG"
-                    : count === 2
-                      ? "/IMG_20240516_042629_313.jpg"
-                      : "/TEKKID.png"
-              }
-              className="object-cover rounded-2xl xl:h-full xl:w-full"
-            />
+                    : count === 1
+                      ? "/IMG_0110.JPG"
+                      : count === 2
+                        ? "/IMG_20240516_042629_313.jpg"
+                        : "/TEKKID.png"
+
+                }
+                className="object-cover rounded-2xl xl:h-full xl:w-full"
+              />
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-0 flex justify-center items-center z-50">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md"
-          >
-            <h2 className="text-xl font-bold mb-4">More Details</h2>
-            <p className="text-sm mb-2">{description[count]?.desc1}</p>
-            <p className="text-sm mb-4">{description[count]?.desc2}</p>
-            <button onClick={() => setShowModal(false)} className="bg-red-500 text-white px-4 py-2 rounded">Close</button>
-          </motion.div>
-        </div>
-      )}
-    </div>
+      {
+        showModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-0 flex justify-center items-center z-50">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md"
+            >
+              <h2 className="text-xl font-bold mb-4">More Details</h2>
+              <p className="text-sm mb-2">{description[count]?.desc1}</p>
+              <p className="text-sm mb-4">{description[count]?.desc2}</p>
+              <button onClick={() => setShowModal(false)} className="bg-red-500 text-white px-4 py-2 rounded">Close</button>
+            </motion.div>
+          </div>
+        )
+      }
+    </div >
   );
 }
