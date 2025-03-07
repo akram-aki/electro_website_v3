@@ -4,3 +4,17 @@ body {
   background-color: #f4f4f2;
   font-family: "Sora", sans-serif;
 }
+
+.gradient-text {
+  background: linear-gradient(to right,
+      red,
+      orange,
+      yellow,
+      green,
+      blue,
+      indigo,
+      violet);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

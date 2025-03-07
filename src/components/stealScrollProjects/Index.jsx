@@ -98,7 +98,7 @@ const HorizontalScrollCarousel = () => {
           }
         >
           {" "}
-          PROGRESS <span className="text-black font-medium">{count}% </span>
+          <span className="hidden md:block">PROGRESS</span> <span className="text-black font-medium">{count}% </span>
         </motion.p>
         <Destinations
           className="flex gap-3 absolute  top-28 left-12"

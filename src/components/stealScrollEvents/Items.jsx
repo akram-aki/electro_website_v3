@@ -75,8 +75,20 @@ export default function Items({ count, ...attributes }) {
                   <li className="text-Text4">{description[count]?.desc2}</li>
 
                 </ul>
-              </>) : (
-                <h1>AA</h1>
+              </>) : (<>
+                <h1 className="text-3xl font-bold xl:mb-16 mb-9">
+                  {description[count - 1].header}
+                </h1>
+                <p className="font-semibold text-Text2 text-sm xl:text-lg">
+                  {description[count - 1]?.title}
+                </p>
+                <ul className="list-disc p-4  gap-2 xl:mb-16 text-sm xl:text-lg hidden md:block">
+
+                  <li className="text-Text4">{description[count - 1]?.desc1}</li>
+                  <li className="text-Text4">{description[count - 1]?.desc2}</li>
+
+                </ul>
+              </>
               )
             }
             {count < 4 && (
