@@ -7,6 +7,7 @@ import Nav from "./components/navbar/index";
 import Markee from "./components/Markee/Index";
 import Projects from "./components/Projects/Index";
 import Footer from "./components/Footer/Index";
+import CommunityDiscord from "./components/communityDiscord/Index";
 function App() {
   return (
     <>
@@ -24,6 +25,7 @@ function App() {
         <WhatDoWeProvide />
         <Events />
         <Projects />
+        <CommunityDiscord />
       </div>
       <Footer />
 
