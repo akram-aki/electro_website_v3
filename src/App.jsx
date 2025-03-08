@@ -10,6 +10,7 @@ import Projects from "./components/Projects/Index";
 import Footer from "./components/Footer/Index";
 import CommunityDiscord from "./components/communityDiscord/Index";
 import Navbar from "./components/navbar/index";
+import Test from "./components/Test";
 
 function App() {
   const headerRef = useRef(null);
@@ -43,7 +44,6 @@ function App() {
             <Markee />
           </div>
         </section>
-
         <section id="whatDoWeProvide" ref={whatDoWeProvideRef}>
           <WhatDoWeProvide />
         </section>
@@ -59,7 +59,7 @@ function App() {
         <section id="communityDiscord" ref={communityDiscordRef}>
           <CommunityDiscord />
         </section>
-      </div>
+      </div >
       <section id="footer" ref={communityDiscordRef}>
 
         <Footer />

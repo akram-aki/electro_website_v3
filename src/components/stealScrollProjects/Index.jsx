@@ -5,6 +5,15 @@ import ProjectCard from "./ProjectCard";
 const Index = () => {
   return <HorizontalScrollCarousel />;
 };
+const projects2 = [
+  {
+    projectTitle: "Bluetooth-Controlled Car with HC-05 Module",
+    projectAuthor: "Youcef Boubidi",
+    projectImgs: ["imgLink1, imgLink2, etc."],
+    projectCode: "code here",
+    projectDocumentation: ""
+  }
+]
 const projects = [
   {
     projectTitle: "Bluetooth-Controlled Car with HC-05 Module",

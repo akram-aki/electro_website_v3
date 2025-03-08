@@ -1,18 +1,19 @@
 import React from 'react'
 
-function LearningEnvironment() {
+function LearningEnvironment({ ...attributes }) {
     const listItems = {
         "Events": [
-            ["I", "II", "III"],
+            ["I", "II", "III", "IV"],
             [
                 "Access to everything Electronics",
                 "Passionate mentors",
                 "Friendly and fun environment",
+                "Eighteen Times Nine"
             ]
         ]
     }
     return (
-        <>
+        <div {...attributes}>
             <div className="xl:flex items-start">
                 <div className="flex items-center justify-between xl:w-6/12 mr-10 xl:mr-0">
                     <span className='text-[#797877] text-[17px] xl:w-4/12'>/02/</span>
@@ -39,7 +40,7 @@ function LearningEnvironment() {
                     </ul>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
