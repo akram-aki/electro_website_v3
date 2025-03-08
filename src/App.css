@@ -6,15 +6,12 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(to right,
-      red,
-      orange,
-      yellow,
-      green,
-      blue,
-      indigo,
-      violet);
-  background-size: 200%;
+  background-image: linear-gradient(to right, yellow, green, blue);
+  background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  display: inline;
+  white-space: nowrap;
 }

@@ -13,23 +13,20 @@ function CommunityDiscord() {
                     transition={{ duration: 0.8, ease: "easeInOut" }}
                 >
                     Electro Club Community{" "}
-                    <span className="relative inline-block">
-                        <span className="text-black">Discord!</span>
+                    <span className="">
                         <motion.span
-                            className="absolute inset-0 w-full h-full gradient-text"
-                            initial={{ backgroundPosition: "0% 50%", opacity: 1 }}
-                            whileInView={{
-                                backgroundPosition: "100% 50%",
-                                opacity: 0,
+                            className="w-full h-full gradient-text"
+                            initial={{ backgroundPosition: "0% 50%" }}
+                            animate={{
+                                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
                             }}
-                            viewport={{ amount: 0.2 }}
                             transition={{
-                                backgroundPosition: { duration: 1, ease: "linear" },
-                                opacity: { duration: 1, ease: "easeInOut", delay: 0.6 },
+                                backgroundPosition: { duration: 3, ease: "linear", repeat: Infinity },
                             }}
                         >
                             Discord!
                         </motion.span>
+
                     </span>
 
                 </motion.h1>
