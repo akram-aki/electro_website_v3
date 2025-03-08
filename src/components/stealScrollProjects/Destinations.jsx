@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const AnimatedSteps = ({count, ...attributes }) => {
+const AnimatedSteps = ({ count, ...attributes }) => {
   const currentStep = Math.floor(count / 25) + 1;
 
   const motionProps = {
@@ -13,9 +13,14 @@ const AnimatedSteps = ({count, ...attributes }) => {
       {[1, 2, 3, 4].map((step) => (
         <div key={step}>
           {step === currentStep ? (
-            <motion.div {...motionProps} className="font-bold text-[#383837]">
-              PROJECT /{step}/
-            </motion.div>
+            <>
+              <motion.div {...motionProps} className="font-bold text-[#383837] hidden xl:block">
+                PROJECT /{step}/
+              </motion.div>
+              <motion.div {...motionProps} className="font-bold text-[#383837] block xl:hidden ">
+                /{step}/
+              </motion.div>
+            </>
           ) : (
             <p className="text-[#b5b5b5]">/{step}/ </p>
           )}

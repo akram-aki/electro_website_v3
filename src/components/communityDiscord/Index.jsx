@@ -6,7 +6,7 @@ function CommunityDiscord() {
         <>
             <div className="flex justify-center mb-12">
                 <motion.h1
-                    className="text-[70px] font-bold"
+                    className="font-bold text-2xl md:text-4xl md:text-[70px] text-center"
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
@@ -35,11 +35,11 @@ function CommunityDiscord() {
                 </motion.h1>
             </div>
 
-            <div className="flex items-center relative">
+            <div className="flex flex-col md:flex-row items-center relative">
                 <motion.img
                     src="discordServer.png"
                     alt="Discord Server Preview"
-                    className="z-0 opacity-80"
+                    className="z-0 opacity-80 w-full md:w-auto"
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, amount: 0.3 }}
@@ -47,13 +47,13 @@ function CommunityDiscord() {
                 />
 
                 <motion.div
-                    className="z-10 -ml-[464px] p-4 rounded-md shadow-2xl flex flex-col items-center gap-6 text-lg bg-white/60"
+                    className="z-10 md:-ml-[464px] mt-4 md:mt-0 p-4 rounded-md shadow-2xl flex flex-col items-center md:gap-6 gap-4 text-lg bg-white/60"
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.8, ease: "easeInOut", delay: 0.2 }}
                 >
-                    <h3 className="text-center max-w-[900px]">
+                    <h3 className="text-center max-w-full md:max-w-[900px]">
                         Join our community discord server to get in touch with us, benefit from online workshops, gaming nights, exciting activities, opportunities, and more!
                     </h3>
                     <h4 className="text-center">

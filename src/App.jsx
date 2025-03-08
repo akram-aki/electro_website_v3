@@ -33,11 +33,6 @@ function App() {
         <section id="header" ref={headerRef}>
           <Header />
         </section>
-
-        <div className="hidden">
-          <Nav />
-        </div>
-
         <section
           id="hero"
           ref={heroRef}
@@ -57,7 +52,7 @@ function App() {
           <Events />
         </section>
 
-        <section id="projects" ref={projectsRef}>
+        <section id="projects" ref={projectsRef} className="md:block hidden">
           <Projects />
         </section>
 

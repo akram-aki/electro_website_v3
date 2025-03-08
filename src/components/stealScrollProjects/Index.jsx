@@ -113,40 +113,70 @@ const HorizontalScrollCarousel = () => {
   );
 
 };
-
 const Projects = ({ ...attributes }) => {
   return (
-    <motion.div
-      className="flex flex-shrink-0 gap-16 pr-16 min-w-max"
-      {...attributes}
-    >
-      {projects.map((project, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 20, scale: 0.95 }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            transition: {
-              type: "spring",
-              stiffness: 50,
-              delay: index * 0.1
-            }
-          }}
-          viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="flex-shrink-0"
-        >
-          <ProjectCard
-            projectImg={project.projectImg}
-            projectAuthor={project.projectAuthor}
-            projectTitle={project.projectTitle}
-          />
-        </motion.div>
-      ))}
-    </motion.div>
+    <>
+      <motion.div
+        className="hidden md:flex flex-shrink-0 gap-16 pr-16 min-w-max"
+        {...attributes}
+      >
+        {projects.map((project, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              transition: {
+                type: "spring",
+                stiffness: 50,
+                delay: index * 0.1,
+              },
+            }}
+            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="flex-shrink-0"
+          >
+            <ProjectCard
+              projectImg={project.projectImg}
+              projectAuthor={project.projectAuthor}
+              projectTitle={project.projectTitle}
+            />
+          </motion.div>
+        ))}
+      </motion.div>
+
+      <div className="md:hidden flex flex-col gap-4 px-4 py-4">
+        {projects.map((project, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              transition: {
+                type: "spring",
+                stiffness: 50,
+                delay: index * 0.1,
+              },
+            }}
+            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <ProjectCard
+              projectImg={project.projectImg}
+              projectAuthor={project.projectAuthor}
+              projectTitle={project.projectTitle}
+            />
+          </motion.div>
+        ))}
+      </div>
+    </>
   );
 };
+
 export default Index;

@@ -46,8 +46,8 @@ const SlideTabs = ({ sectionsRefs = {} }) => {
 
   const tabs = [
     { label: "Home", href: "#header" },
-    { label: "Projects", href: "#projects" },
     { label: "Events", href: "#events" },
+    { label: "Projects", href: "#projects" },
     { label: "Community", href: "#communityDiscord" },
   ];
 
@@ -115,7 +115,7 @@ const SlideTabs = ({ sectionsRefs = {} }) => {
 
   return (
     <ul
-      className="relative mx-auto flex w-fit min-h-[50px] rounded-full border border-Text3 bg-white overflow-visible"
+      className="relative mx-auto flex w-fit md:min-h-[50px] rounded-full border border-Text3 bg-white overflow-visible"
       onMouseLeave={() => setCursorPos({ ...activePos, opacity: 1 })}
     >
       {tabs.map((tab, index) => (
@@ -135,17 +135,19 @@ const SlideTabs = ({ sectionsRefs = {} }) => {
             }
           }}
           isActive={index === activeIndex}
+          // Hide tab with index 2 on mobile, show on md and up
+          className={index === 2 ? "hidden md:block" : ""}
         >
           {tab.label}
         </Tab>
       ))}
+
       <Cursor position={cursorPos} />
     </ul>
   );
 };
-
 const Tab = React.forwardRef(
-  ({ href, children, setCursorPos, onClick, isActive, ...attributes }, ref) => {
+  ({ href, children, setCursorPos, onClick, isActive, className = "", ...attributes }, ref) => {
     return (
       <a
         ref={ref}
@@ -163,13 +165,14 @@ const Tab = React.forwardRef(
           onClick(e);
         }}
         className={`relative z-10 block cursor-pointer px-3 py-1.5 text-xs uppercase text-white mix-blend-difference md:px-5 md:py-3 md:text-base transition-colors duration-200 rounded-full ${isActive ? "" : "hover:bg-[#666666]"
-          }`}
+          } ${className}`}
       >
         {children}
       </a>
     );
   }
 );
+
 
 const Cursor = ({ position, ...attributes }) => {
   return (
