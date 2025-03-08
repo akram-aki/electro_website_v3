@@ -41,7 +41,7 @@ const WhatDoWeProvide = () => {
                         transition: "all 0.3 ease-out"
                     }}
                 >
-                    <LearningEnvironment className='bg-white' />
+                    <LearningEnvironment className='bg-[#f4f4f2]' />
                 </motion.div>
             </div>
         </section>
