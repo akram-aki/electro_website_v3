@@ -6,32 +6,32 @@ function CommunityDiscord() {
         <>
             <div className="flex justify-center mb-12">
                 <motion.h1
-                    className="font-bold text-2xl md:text-4xl md:text-[70px] text-center"
+                    className="font-bold text-3xl md:text-[70px] text-center"
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
+                    viewport={{ amount: 0.2 }}
                     transition={{ duration: 0.8, ease: "easeInOut" }}
                 >
                     Electro Club Community{" "}
                     <span className="relative inline-block">
-                        <span className="text-black">Discord</span>
+                        <span className="text-black">Discord!</span>
                         <motion.span
-                            className="absolute inset-0 gradient-text"
+                            className="absolute inset-0 w-full h-full gradient-text"
                             initial={{ backgroundPosition: "0% 50%", opacity: 1 }}
                             whileInView={{
                                 backgroundPosition: "100% 50%",
                                 opacity: 0,
                             }}
-                            viewport={{ once: true, amount: 0.2 }}
+                            viewport={{ amount: 0.2 }}
                             transition={{
                                 backgroundPosition: { duration: 1, ease: "linear" },
                                 opacity: { duration: 1, ease: "easeInOut", delay: 0.6 },
                             }}
                         >
-                            Discord
+                            Discord!
                         </motion.span>
                     </span>
-                    !
+
                 </motion.h1>
             </div>
 
@@ -47,7 +47,7 @@ function CommunityDiscord() {
                 />
 
                 <motion.div
-                    className="z-10 md:-ml-[464px] mt-4 md:mt-0 p-4 rounded-md shadow-2xl flex flex-col items-center md:gap-6 gap-4 text-lg bg-white/60"
+                    className="z-10 md:-ml-[464px] mt-4 md:mt-0 p-4 rounded-md shadow-2xl flex flex-col items-center md:gap-6 gap-4 text-lg md:text-xl bg-white/60"
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
