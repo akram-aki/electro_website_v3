@@ -4,24 +4,24 @@ import React, { useRef, useState, useEffect } from "react";
 export default function Navbar({ sectionsRefs = {} }) {
   const [isVisible, setIsVisible] = useState(true);
 
-  useEffect(() => {
-    const footerEl = document.getElementById("footer");
-    if (footerEl) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            setIsVisible(!entry.isIntersecting);
-          });
-        },
-        { threshold: 0.1 }
-      );
-      observer.observe(footerEl);
+  // useEffect(() => {
+  //   const footerEl = document.getElementById("footer");
+  //   if (footerEl) {
+  //     const observer = new IntersectionObserver(
+  //       (entries) => {
+  //         entries.forEach((entry) => {
+  //           setIsVisible(!entry.isIntersecting);
+  //         });
+  //       },
+  //       { threshold: 0.1 }
+  //     );
+  //     observer.observe(footerEl);
 
-      return () => {
-        observer.unobserve(footerEl);
-      };
-    }
-  }, []);
+  //     return () => {
+  //       observer.unobserve(footerEl);
+  //     };
+  //   }
+  // }, []);
 
   if (!isVisible) return null;
 
@@ -164,7 +164,7 @@ const Tab = React.forwardRef(
         onClick={(e) => {
           onClick(e);
         }}
-        className={`relative z-10 block cursor-pointer px-3 py-1.5 text-xs uppercase text-white mix-blend-difference md:px-5 md:py-3 md:text-base transition-colors duration-200 rounded-full ${isActive ? "" : "hover:bg-[#666666]"
+        className={`relative z-10 block cursor-pointer px-3 py-1.5 text-xs text-white mix-blend-difference md:px-5 md:py-3 md:text-base transition-colors duration-200 rounded-full ${isActive ? "" : "hover:bg-[#666666]"
           } ${className}`}
       >
         {children}

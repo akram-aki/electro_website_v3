@@ -5,7 +5,7 @@ import { Secondary_button } from "../button/Index";
 
 function Hero() {
   return (
-    <div className="relative grid xl:grid-cols-[6fr_6fr] gap-32 mt-10 mb-10">
+    <div className="relative grid xl:grid-cols-[6fr_6fr] gap-16 md:gap-32 mt-10 mb-10">
       <div
         style={{
           position: "absolute",

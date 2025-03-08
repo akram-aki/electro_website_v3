@@ -11,7 +11,7 @@ import Footer from "./components/Footer/Index";
 import CommunityDiscord from "./components/communityDiscord/Index";
 import Navbar from "./components/navbar/index";
 import Test from "./components/Test";
-
+import HeroImage from "./components/HeroImage";
 function App() {
   const headerRef = useRef(null);
   const heroRef = useRef(null);
@@ -37,13 +37,14 @@ function App() {
         <section
           id="hero"
           ref={heroRef}
-          className="xl:my-[220px] my-[110px] flex flex-col"
+          className=" xl:my-[110px] my-2 flex flex-col"
         >
           <Hero />
           <div className="mx-auto xl:mx-0">
             <Markee />
           </div>
         </section>
+        <HeroImage />
         <section id="whatDoWeProvide" ref={whatDoWeProvideRef}>
           <WhatDoWeProvide />
         </section>
