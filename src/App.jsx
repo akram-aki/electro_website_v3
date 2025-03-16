@@ -1,18 +1,19 @@
 import React, { useRef } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header/Index";
 import Hero from "./components/Hero/Index";
 import WhatDoWeProvide from "./components/WhatDoWeProvide/Index";
 import Events from "./components/Events/Index";
-import Nav from "./components/navbar/index";
+import Navbar from "./components/navbar/index";
 import Markee from "./components/Markee/Index";
 import Projects from "./components/Projects/Index";
 import Footer from "./components/Footer/Index";
 import CommunityDiscord from "./components/communityDiscord/Index";
-import Navbar from "./components/navbar/index";
-import Test from "./components/Test";
 import HeroImage from "./components/HeroImage";
-function App() {
+import ElectroBotRumble from "./pages/ElectroBotRumble";
+import ScrollingBanner from "./components/ScrollingBanner";
+function Home() {
   const headerRef = useRef(null);
   const heroRef = useRef(null);
   const whatDoWeProvideRef = useRef(null);
@@ -29,16 +30,13 @@ function App() {
 
   return (
     <>
+      <ScrollingBanner />
       <Navbar sectionsRefs={sectionsRefs} />
       <div className="xl:mt-16 xl:mx-16 mt-8 mx-6">
         <section id="header" ref={headerRef}>
           <Header />
         </section>
-        <section
-          id="hero"
-          ref={heroRef}
-          className=" xl:my-[110px] my-2 flex flex-col"
-        >
+        <section id="hero" ref={heroRef} className="xl:my-[110px] my-2 flex flex-col">
           <Hero />
           <div className="mx-auto xl:mx-0">
             <Markee />
@@ -48,24 +46,29 @@ function App() {
         <section id="whatDoWeProvide" ref={whatDoWeProvideRef}>
           <WhatDoWeProvide />
         </section>
-
         <section id="events" ref={eventsRef}>
           <Events />
         </section>
-
         <section id="projects" ref={projectsRef} className="md:block hidden">
           <Projects />
         </section>
-
         <section id="communityDiscord" ref={communityDiscordRef}>
           <CommunityDiscord />
         </section>
-      </div >
-      <section id="footer" ref={communityDiscordRef}>
-
-        <Footer />
-      </section>
+      </div>
+      <Footer />
     </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/electrobot-rumble" element={<ElectroBotRumble />} />
+      </Routes>
+    </Router>
   );
 }
 
