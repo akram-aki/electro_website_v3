@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import Header from '../components/Header/Index';
+import { db } from "../firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore"; // Import serverTimestamp
+
 const RegistrationForm = () => {
     const [teamInfo, setTeamInfo] = useState({
         teamName: '',
@@ -10,18 +13,44 @@ const RegistrationForm = () => {
         phone: '',
     });
 
-    // State for 3 team members (including leader as first member)
     const [members, setMembers] = useState([
-        { fullName: '', studentId: '', email: '', phone: '', discordUsername: '' },
-        { fullName: '', studentId: '', email: '', phone: '', discordUsername: '' },
         { fullName: '', studentId: '', email: '', phone: '', discordUsername: '' },
     ]);
 
-    // State for signature and attachments
     const [signature, setSignature] = useState('');
     const [signatureDate, setSignatureDate] = useState('');
     const [technicalSheet, setTechnicalSheet] = useState(null);
     const [studentIDs, setStudentIDs] = useState(null);
+
+    const addMember = () => {
+        // Check if any existing member has an empty field
+        const allFilled = members.every(member =>
+            member.fullName.trim() !== "" &&
+            member.studentId.trim() !== "" &&
+            member.email.trim() !== "" &&
+            member.discordUsername.trim() !== "" &&
+            member.phone.trim() !== ""
+        );
+
+        if (!allFilled) {
+            alert("Please fill in all fields before adding a new member.");
+            return;
+        }
+
+        // Add a new empty member (limit to 4)
+        if (members.length < 4) {
+            setMembers([...members, { fullName: "", studentId: "", email: "", discordUsername: "", phone: "" }]);
+        }
+    };
+
+    const removeMember = (index) => {
+        if (members.length === 1) {
+            alert("You must have at least one member.");
+            return;
+        }
+        const updatedMembers = members.filter((_, i) => i !== index);
+        setMembers(updatedMembers);
+    };
 
     // Handle changes in team info fields
     const handleTeamInfoChange = (e) => {
@@ -38,8 +67,21 @@ const RegistrationForm = () => {
     };
 
     // Handle form submission (pure frontend; adjust as needed)
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            await addDoc(collection(db, 'registrations'), {
+                teamInfo,
+                members,
+                signature,
+                signatureDate,
+                submittedAt: serverTimestamp(),
+            });
+            alert("Thank you for your registration! Keep an eye out for the confirmation email from us.");
+        } catch (error) {
+            console.error("Error submitting registration:", error);
+            alert("Error submitting registration. Please try again later.");
+        }
         console.log({
             teamInfo,
             members,
@@ -48,20 +90,21 @@ const RegistrationForm = () => {
             technicalSheet,
             studentIDs,
         });
-        alert("Registration submitted!");
     };
 
     return (
-        <div className='flex flex-col mx-20 my-10 justify-center md:justify-center'>
+        <div className='flex flex-col mx-4 md:mx-20 my-10 justify-center'>
             <Header hidden={true} className='mb-5' />
             <div className="flex justify-center pb-6 bg-gray-100 min-h-screen">
-                <form className="w-full max-w-3xl bg-white border border-[#70a939] p-8 rounded shadow-md" onSubmit={handleSubmit}>
-
-                    <h1 className="text-center text-3xl font-bold text-[#70a939]">ELECTROBOT RUMBLE 2025</h1>
-                    <h2 className="text-center text-2xl font-semibold mt-2">REGISTRATION FORM</h2>
+                <form
+                    className="w-full max-w-3xl bg-white border border-[#70a939] p-6 md:p-8 rounded shadow-md"
+                    onSubmit={handleSubmit}
+                >
+                    <h1 className="text-center text-2xl md:text-3xl font-bold text-[#70a939]">ELECTROBOT RUMBLE 2025</h1>
+                    <h2 className="text-center text-xl md:text-2xl font-semibold mt-2">REGISTRATION FORM</h2>
                     <p className="text-center text-gray-700 mt-1">Organized by Electro Scientific Club</p>
 
-                    <h3 className="mt-6 text-xl font-semibold text-[#70a939]">Team Information</h3>
+                    <h3 className="mt-6 text-lg md:text-xl font-semibold text-[#70a939]">Team Information</h3>
                     <div className="mt-4">
                         <label className="block mb-1">Team Name:</label>
                         <input
@@ -115,7 +158,7 @@ const RegistrationForm = () => {
                     </div>
 
                     <div className="mt-4">
-                        <label className="block mb-1">Email:</label>
+                        <label className="block mb-1">Team Leader Email:</label>
                         <input
                             type="email"
                             name="email"
@@ -128,7 +171,7 @@ const RegistrationForm = () => {
                     </div>
 
                     <div className="mt-4">
-                        <label className="block mb-1">Phone Number:</label>
+                        <label className="block mb-1">Team Leader Phone Number:</label>
                         <input
                             type="tel"
                             name="phone"
@@ -140,7 +183,7 @@ const RegistrationForm = () => {
                         />
                     </div>
 
-                    <h3 className="mt-8 text-xl font-semibold text-[#70a939]">
+                    <h3 className="mt-8 text-lg md:text-xl font-semibold text-[#70a939]">
                         Team Members (Maximum of 3 members including the leader)
                     </h3>
                     {members.map((member, index) => (
@@ -186,8 +229,8 @@ const RegistrationForm = () => {
                                     <input
                                         type="tel"
                                         name="discordUsername"
-                                        value={teamInfo.discordUsername}
-                                        onChange={handleTeamInfoChange}
+                                        value={member.discordUsername}
+                                        onChange={(e) => handleMemberChange(e, index)}
                                         placeholder="Enter Discord Username"
                                         required
                                         className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
@@ -206,10 +249,25 @@ const RegistrationForm = () => {
                                     className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
                                 />
                             </div>
+                            <button
+                                type="button"
+
+                                className="mt-4 rounded-sm bg-red-800 w-full sm:w-1/3 py-1 text-white text-sm"
+                                onClick={() => removeMember(index)}
+                            >
+                                - REMOVE MEMBER
+                            </button>
                         </div>
                     ))}
+                    <button
+                        className="mt-4 rounded-sm bg-[#70a939] w-full sm:w-1/2 py-1 text-white"
+                        onClick={addMember}
+                        type="button"
+                    >
+                        + ADD A MEMBER
+                    </button>
 
-                    <h3 className="mt-8 text-xl font-semibold text-[#70a939]">Competition Rules Agreement</h3>
+                    <h3 className="mt-8 text-lg md:text-xl font-semibold text-[#70a939]">Competition Rules Agreement</h3>
                     <p className="mt-2 text-gray-700">
                         By signing this form, you agree to abide by all the rules and regulations of the Electrobot Rumble, including but not limited to:
                     </p>
@@ -217,55 +275,10 @@ const RegistrationForm = () => {
                         <li>Respecting all participants and organizers.</li>
                         <li>Ensuring your robot complies with the technical specifications.</li>
                         <li>Accepting the jury’s final decisions.</li>
-                        <li>Acknowledging that failure to adhere to the rules may result in disqualification.</li>
                     </ul>
 
-                    <div className="mt-6">
-                        <label className="block mb-1">Team Leader’s Signature:</label>
-                        <input
-                            type="text"
-                            value={signature}
-                            onChange={(e) => setSignature(e.target.value)}
-                            placeholder="Type your signature"
-                            required
-                            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
-                        />
-                    </div>
-
-                    <div className="mt-4">
-                        <label className="block mb-1">Date:</label>
-                        <input
-                            type="date"
-                            value={signatureDate}
-                            onChange={(e) => setSignatureDate(e.target.value)}
-                            required
-                            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
-                        />
-                    </div>
-
-                    <h3 className="mt-8 text-xl font-semibold text-[#70a939]">Required Attachments</h3>
-                    <div className="mt-4">
-                        <label className="block mb-1">
-                            Technical Sheet of the Robot (detailed design and specifications):
-                        </label>
-                        <input
-                            type="file"
-                            onChange={(e) => setTechnicalSheet(e.target.files[0])}
-                            className="w-full"
-                        />
-                    </div>
-
-                    <div className="mt-4">
-                        <label className="block mb-1">Student IDs of all team members:</label>
-                        <input
-                            type="file"
-                            onChange={(e) => setStudentIDs(e.target.files[0])}
-                            className="w-full"
-                        />
-                    </div>
-
                     <p className="mt-6 text-center text-gray-700">
-                        Submission Deadline: ___________________________
+                        Submission Deadline: April 4th, 2025
                     </p>
                     <p className="mt-2 text-center text-gray-700">
                         For any inquiries, contact us at{' '}
@@ -286,13 +299,12 @@ const RegistrationForm = () => {
     );
 };
 
-
 function ElectroBotRumble() {
     return (
         <div>
             <RegistrationForm />
         </div>
-    )
+    );
 }
 
-export default ElectroBotRumble
+export default ElectroBotRumble;

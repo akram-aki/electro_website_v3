@@ -2,8 +2,8 @@ import React from 'react';
 
 const ScrollingBanner = () => {
     return (
-        <>
-            <div className="w-full h-8 overflow-hidden bg-[#70a939] flex items-center">
+        <a href='/electrobot-rumble'>
+            <div className="w-full h-8 overflow-hidden bg-[#70a939] flex items-center" href='/'>
                 <div
                     className="whitespace-nowrap text-white font-bold"
                     style={{ animation: 'marquee 15s linear infinite' }}
@@ -17,7 +17,7 @@ const ScrollingBanner = () => {
           100% { transform: translateX(-100%); }
         }
       `}</style>
-        </>
+        </a>
     );
 };
 

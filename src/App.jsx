@@ -13,6 +13,7 @@ import CommunityDiscord from "./components/communityDiscord/Index";
 import HeroImage from "./components/HeroImage";
 import ElectroBotRumble from "./pages/ElectroBotRumble";
 import ScrollingBanner from "./components/ScrollingBanner";
+import AdminPage from "./pages/AdminPage";
 function Home() {
   const headerRef = useRef(null);
   const heroRef = useRef(null);
@@ -67,6 +68,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/electrobot-rumble" element={<ElectroBotRumble />} />
+        <Route path="/electrobot-applications" element={<AdminPage />} />
       </Routes>
     </Router>
   );
