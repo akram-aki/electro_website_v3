@@ -75,7 +75,6 @@ const AdminPanel = () => {
     return (
         <div className="flex flex-col mx-4 md:mx-20 my-10">
             <div className="bg-gray-100 min-h-screen p-6">
-                <Header hidden={true} className="mb-5" />
                 <h1 className="text-2xl font-bold text-[#70a939] text-center">
                     Admin Panel - Applications
                 </h1>
