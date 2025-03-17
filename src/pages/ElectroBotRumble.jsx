@@ -14,7 +14,16 @@ const RegistrationForm = () => {
     });
 
     const [members, setMembers] = useState([
-        { fullName: '', studentId: '', email: '', phone: '', discordUsername: '' },
+        {
+            fullName: '',
+            studentId: '',
+            email: '',
+            phone: '',
+            discordUsername: '',
+            projects: '',
+            github: '',
+            linkedin: '',
+        },
     ]);
 
     const [signature, setSignature] = useState('');
@@ -23,7 +32,7 @@ const RegistrationForm = () => {
     const [studentIDs, setStudentIDs] = useState(null);
 
     const addMember = () => {
-        // Check if any existing member has an empty field
+        // Check if any existing member has an empty required field
         const allFilled = members.every(member =>
             member.fullName.trim() !== "" &&
             member.studentId.trim() !== "" &&
@@ -33,13 +42,25 @@ const RegistrationForm = () => {
         );
 
         if (!allFilled) {
-            alert("Please fill in all fields before adding a new member.");
+            alert("Please fill in all required fields before adding a new member.");
             return;
         }
 
         // Add a new empty member (limit to 4)
         if (members.length < 4) {
-            setMembers([...members, { fullName: "", studentId: "", email: "", discordUsername: "", phone: "" }]);
+            setMembers([
+                ...members,
+                {
+                    fullName: "",
+                    studentId: "",
+                    email: "",
+                    discordUsername: "",
+                    phone: "",
+                    projects: "",
+                    github: "",
+                    linkedin: "",
+                }
+            ]);
         }
     };
 
@@ -224,18 +245,18 @@ const RegistrationForm = () => {
                                     required
                                     className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
                                 />
-                                <div className="mt-4">
-                                    <label className="block mb-1">Discord Username:</label>
-                                    <input
-                                        type="tel"
-                                        name="discordUsername"
-                                        value={member.discordUsername}
-                                        onChange={(e) => handleMemberChange(e, index)}
-                                        placeholder="Enter Discord Username"
-                                        required
-                                        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
-                                    />
-                                </div>
+                            </div>
+                            <div className="mt-4">
+                                <label className="block mb-1">Discord Username:</label>
+                                <input
+                                    type="text"
+                                    name="discordUsername"
+                                    value={member.discordUsername}
+                                    onChange={(e) => handleMemberChange(e, index)}
+                                    placeholder="Enter Discord username"
+                                    required
+                                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
+                                />
                             </div>
                             <div className="mt-3">
                                 <label className="block mb-1">Phone Number:</label>
@@ -249,9 +270,41 @@ const RegistrationForm = () => {
                                     className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
                                 />
                             </div>
+                            <div className="mt-3">
+                                <label className="block mb-1">Projects / Experience</label>
+                                <input
+                                    type="text"
+                                    name="projects"
+                                    value={member.projects || ''}
+                                    onChange={(e) => handleMemberChange(e, index)}
+                                    placeholder="Projects or experience you had with robotics."
+                                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
+                                />
+                            </div>
+                            <div className="mt-3">
+                                <label className="block mb-1">GitHub profile (if exists)</label>
+                                <input
+                                    type="text"
+                                    name="github"
+                                    value={member.github || ''}
+                                    onChange={(e) => handleMemberChange(e, index)}
+                                    placeholder="https://github.com/username"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
+                                />
+                            </div>
+                            <div className="mt-3">
+                                <label className="block mb-1">LinkedIn profile (if exists)</label>
+                                <input
+                                    type="text"
+                                    name="linkedin"
+                                    value={member.linkedin || ''}
+                                    onChange={(e) => handleMemberChange(e, index)}
+                                    placeholder="https://linkedin.com/username"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
+                                />
+                            </div>
                             <button
                                 type="button"
-
                                 className="mt-4 rounded-sm bg-red-800 w-full sm:w-1/3 py-1 text-white text-sm"
                                 onClick={() => removeMember(index)}
                             >

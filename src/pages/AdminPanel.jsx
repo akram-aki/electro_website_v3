@@ -146,6 +146,15 @@ const AdminPanel = () => {
                                                                 <p>
                                                                     <strong>Student ID:</strong> {member.studentId}
                                                                 </p>
+                                                                <p>
+                                                                    <strong>Projects/Experience:</strong> {member.projects || 'N/A'}
+                                                                </p>
+                                                                <p>
+                                                                    <strong>GitHub:</strong> {member.github || 'N/A'}
+                                                                </p>
+                                                                <p>
+                                                                    <strong>LinkedIn:</strong> {member.linkedin || 'N/A'}
+                                                                </p>
                                                             </li>
                                                         ))}
                                                     </ul>
