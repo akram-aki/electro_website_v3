@@ -108,7 +108,7 @@ export default function Items({ count, ...attributes }) {
                   count === 0
                     ? "/IMG_0110.JPG"
                     : count === 1
-                      ? "/IMG_0110.JPG"
+                      ? "/welcomeDay.JPG"
                       : count === 2
                         ? "/IMG_20240516_042629_313.jpg"
                         : "/TEKKID.png"
