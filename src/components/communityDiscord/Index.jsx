@@ -6,7 +6,7 @@ function CommunityDiscord() {
         <>
             <div className="flex justify-center mb-12">
                 <motion.h1
-                    className="font-bold text-3xl md:text-[70px] text-center"
+                    className="font-bold text-3xl xl:text-[70px] lg:text-[55px] text-center my-12"
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ amount: 0.2 }}
@@ -36,7 +36,7 @@ function CommunityDiscord() {
                 <motion.img
                     src="discordServer.png"
                     alt="Discord Server Preview"
-                    className="z-0 opacity-80 w-full md:w-auto"
+                    className="z-0 opacity-80 w-full md:w-[70%] xl:w-[60%]"
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, amount: 0.3 }}

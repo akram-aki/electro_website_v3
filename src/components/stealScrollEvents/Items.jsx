@@ -66,7 +66,7 @@ export default function Items({ count, ...attributes }) {
               <h1 className="text-3xl font-bold xl:mb-16 mb-9">
                 {description[count].header}
               </h1>
-              <p className="font-semibold text-Text2 text-sm xl:text-lg">
+              <p className="font-semibold text-Text2 text-sm xl:text-lg mb-8 md:mb-0">
                 {description[count]?.title}
               </p>
               <ul className="list-disc p-4  gap-2 xl:mb-16 text-sm xl:text-lg hidden md:block">

@@ -72,7 +72,7 @@ const HorizontalScrollCarousel = () => {
         />
         <Items
           count={Math.floor(count / 25)}
-          className="xl:grid grid-cols-[1.5fr_1fr] gap-20 border-2 border-white bg-Background w-[93%] rounded-xl xl:h-[400px] h-[400px] absolute left-1/2 top-[50vh] -translate-x-1/2 -translate-y-1/2"
+          className="md:grid grid-cols-[1.5fr_1fr] gap-20 border-2 border-white bg-Background w-[93%] rounded-xl md:h-[310px] xl:h-[500px] absolute left-1/2 top-[45vh] md:top-[59vh] xl:top-[50vh] -translate-x-1/2 -translate-y-1/2"
         />
       </div>
     </section>

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const ProjectCard = ({ projectImg, projectTitle, projectAuthor, ...attributes }) => {
     return (
         <motion.div
-            className="flex flex-col gap-6 max-w-lg bg-white rounded-lg shadow-md overflow-hidden"
+            className="flex flex-col gap-6 max-w-lg bg-Background rounded-lg shadow-md overflow-hidden md:w-96 xl:w-[500px]"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             whileInView={{
                 opacity: 1,
@@ -23,16 +23,16 @@ const ProjectCard = ({ projectImg, projectTitle, projectAuthor, ...attributes })
             <motion.img
                 src={projectImg}
                 alt={projectTitle}
-                className="w-full h-96 object-cover"
+                className="md:h-60 xl:h-96 w-full object-cover"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
             />
             <div className="flex flex-col flex-grow px-4"> {/* Flex container for consistent height */}
-                <h3 className="text-black text-xl font-semibold mb-3 line-clamp-2"> {/* Limit title to 2 lines */}
+                <h3 className="text-black text-md font-semibold mb-3 line-clamp-2"> {/* Limit title to 2 lines */}
                     {projectTitle}
                 </h3>
                 <div className="flex justify-between items-center mt-auto pb-4"> {/* Push footer to bottom */}
-                    <span className="text-[#797877] text-lg">
+                    <span className="text-[#797877] text-md">
                         By <span className="text-black">{projectAuthor}</span>
                     </span>
                     <motion.button

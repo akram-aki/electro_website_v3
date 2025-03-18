@@ -7,8 +7,8 @@ const Index = () => {
 };
 const projects2 = [
   {
-    projectTitle: "Bluetooth-Controlled Car with HC-05 Module",
-    projectAuthor: "Youcef Boubidi",
+    projectTitle: "GSM Phone",
+    projectAuthor: "Yasser ",
     projectImgs: ["imgLink1, imgLink2, etc."],
     projectCode: "code here",
     projectDocumentation: ""
@@ -16,28 +16,28 @@ const projects2 = [
 ]
 const projects = [
   {
-    projectTitle: "Bluetooth-Controlled Car with HC-05 Module",
-    projectAuthor: "Youcef Boubidi",
-    projectImg: "arduinoCar.png"
+    projectTitle: "GSM Phone",
+    projectAuthor: "Yasser Boudahdir",
+    projectImg: "gsmPhone.jpg"
   },
   {
-    projectTitle: "Smart Plant Watering with Arduino IOT Cloud",
-    projectAuthor: "Youcef Boubidi",
-    projectImg: "smartPlantWatering.png"
+    projectTitle: "Joystick Controlled Robotic Arm",
+    projectAuthor: "Amer Marouche",
+    projectImg: "CV Powered Robotic Arm.png"
   },
   {
-    projectTitle: "Cryptocurrency tracker with the GIGA Display Shield",
+    projectTitle: "Solar Following Robot",
     projectAuthor: "Youcef Boubidi",
     projectImg: "crypto.png"
   },
   {
-    projectTitle: "Bluetooth-Controlled Car with HC-05 Module",
-    projectAuthor: "Youcef Boubidi",
+    projectTitle: "Mini CNC Plotter",
+    projectAuthor: "Oussama Bouyahiaoui",
     projectImg: "arduinoCar.png"
   },
   {
-    projectTitle: "Smart Plant Watering with Arduino IOT Cloud",
-    projectAuthor: "Youcef Boubidi",
+    projectTitle: "Hand Following Car",
+    projectAuthor: "Amer Marouche",
     projectImg: "smartPlantWatering.png"
   },
   {
@@ -63,7 +63,7 @@ const HorizontalScrollCarousel = () => {
   return (
     <section ref={targetRef} className="relative h-[400vh]">
       <div className="sticky  top-0 flex h-screen  w-full ">
-        <div className="bg-[#e9e8e4] relative overflow-hidden border border-white h-7 flex items-center mt-20 w-full mx-10 p-1 rounded-full">
+        <div className="bg-[#e9e8e4] relative overflow-hidden border border-white h-7 flex items-center mt-12 w-full mx-10 p-1 rounded-full">
           <motion.div
             style={{
               x,
@@ -114,7 +114,7 @@ const HorizontalScrollCarousel = () => {
           count={count}
           type="Eventssas"
         />
-        <div className="absolute left-0 top-28 w-full h-[88vh] flex items-center justify-start overflow-hidden">
+        <div className="absolute left-0 top-20 w-full h-[88vh] flex items-center justify-start overflow-hidden">
           <Projects style={{ x: x2 }} />
         </div>
       </div>

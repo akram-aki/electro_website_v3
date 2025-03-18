@@ -5,8 +5,8 @@ import { Secondary_button } from "../button/Index";
 
 function Hero() {
   return (
-    <div className="relative grid xl:grid-cols-[6fr_6fr] gap-16 md:gap-32 mt-10 mb-10">
-      <div
+    <div className="relative grid md:grid-cols-[6fr_6fr] gap-16 md:gap-32 mt-10 mb-10">
+      {/* <div
         style={{
           position: "absolute",
           top: "-60px", // Adjust the top position as needed
@@ -19,8 +19,8 @@ function Hero() {
           backgroundPosition: "left top",
         }}
         className="z-0"
-      ></div>
-      <h1 className="font-bold text-4xl xl:text-[44px] leading-tight z-50 text-main">
+      ></div> */}
+      <h1 className="font-bold text-4xl md:text-[44px] leading-tight z-50 text-main">
         We are a <span className="text-[#70a939]">quick-growing </span>
         community of highly passionate and motivated members.
       </h1>
@@ -33,7 +33,7 @@ function Hero() {
           founded in 2011, we exceed at hosting events, sharing our passion with
           members, and showcasing our ELECTRONICS CREATIONS.
         </p>
-        <div className="flex mt-14 gap-8 justify-center mr-10 xl:justify-start">
+        <div className="flex mt-14 gap-8 justify-center mr-10 md:justify-start">
           <Secondary_button>
             <div className="flex gap-8">
               <img src={DownIcon} alt="Down Icon" />
