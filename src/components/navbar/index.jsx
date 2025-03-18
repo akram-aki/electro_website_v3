@@ -135,8 +135,6 @@ const SlideTabs = ({ sectionsRefs = {} }) => {
             }
           }}
           isActive={index === activeIndex}
-          // Hide tab with index 2 on mobile, show on md and up
-          className={index === 2 ? "hidden md:block" : ""}
         >
           {tab.label}
         </Tab>

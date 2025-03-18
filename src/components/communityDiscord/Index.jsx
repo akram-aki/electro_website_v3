@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 function CommunityDiscord() {
     return (
         <>
-            <div className="flex justify-center mb-12">
+            <div className="flex justify-center mb-12 my-12 md:my-0">
                 <motion.h1
                     className="font-bold text-3xl xl:text-[70px] lg:text-[55px] text-center my-12"
                     initial={{ opacity: 0, y: 50 }}

@@ -50,7 +50,7 @@ function Home() {
         <section id="events" ref={eventsRef}>
           <Events />
         </section>
-        <section id="projects" ref={projectsRef} className="md:block hidden">
+        <section id="projects" ref={projectsRef} className="">
           <Projects />
         </section>
         <section id="communityDiscord" ref={communityDiscordRef}>
