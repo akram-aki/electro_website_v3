@@ -35,7 +35,6 @@ const projects = [
   },
 ];
 
-// Custom hook using matchMedia (always safe to use useEffect here)
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -59,13 +58,11 @@ const HorizontalScrollCarousel = () => {
 
   const { scrollYProgress } = useScroll({ target: targetRef });
 
-  // Always call these hooks, regardless of mobile or not.
   const transformX = useTransform(scrollYProgress, [0, 1], ["3%", "95%"]);
   const transformX2 = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
   const transformRotate = useTransform(scrollYProgress, [0, 1], [0, 1440]);
   const transformProgress = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
-  // Conditionally use the hook values
   const x = isMobile ? 0 : transformX;
   const x2 = isMobile ? 0 : transformX2;
   const rotate = isMobile ? 0 : transformRotate;

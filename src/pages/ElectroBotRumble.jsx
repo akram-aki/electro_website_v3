@@ -32,7 +32,6 @@ const RegistrationForm = () => {
     const [studentIDs, setStudentIDs] = useState(null);
 
     const addMember = () => {
-        // Check if any existing member has an empty required field
         const allFilled = members.every(member =>
             member.fullName.trim() !== "" &&
             member.studentId.trim() !== "" &&
@@ -46,7 +45,6 @@ const RegistrationForm = () => {
             return;
         }
 
-        // Add a new empty member (limit to 4)
         if (members.length < 4) {
             setMembers([
                 ...members,
@@ -73,13 +71,11 @@ const RegistrationForm = () => {
         setMembers(updatedMembers);
     };
 
-    // Handle changes in team info fields
     const handleTeamInfoChange = (e) => {
         const { name, value } = e.target;
         setTeamInfo({ ...teamInfo, [name]: value });
     };
 
-    // Handle changes for each team member
     const handleMemberChange = (e, index) => {
         const { name, value } = e.target;
         const newMembers = [...members];
@@ -87,7 +83,6 @@ const RegistrationForm = () => {
         setMembers(newMembers);
     };
 
-    // Handle form submission (pure frontend; adjust as needed)
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { collection, getDocs, query, where, doc, updateDoc } from 'firebase/firestore';
 import Header from '../components/Header/Index';
-import AdminPanel from './AdminPanel'; // Assume your AdminPanel component is in the same folder
+import AdminPanel from './AdminPanel';
 
 const AdminPage = () => {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -11,7 +11,6 @@ const AdminPage = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    // On mount, check if token exists and is still valid
     useEffect(() => {
         const tokenData = localStorage.getItem('adminToken');
         if (tokenData) {
@@ -29,7 +28,6 @@ const AdminPage = () => {
         e.preventDefault();
         setError('');
         try {
-            // Query the "users" collection to find a matching username and password
             const usersRef = collection(db, 'users');
             const q = query(usersRef, where('username', '==', username), where('password', '==', password));
             const querySnapshot = await getDocs(q);
@@ -45,7 +43,6 @@ const AdminPage = () => {
                 setError('Access denied: not an admin');
                 return;
             }
-            // Generate a token (this is just a simulation) that expires in 4 hours
             const token = Math.random().toString(36).substring(2);
             const expiresAt = new Date();
             expiresAt.setHours(expiresAt.getHours() + 4);

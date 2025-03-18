@@ -48,7 +48,6 @@ const AdminPanel = () => {
         }
     };
 
-    // Returns a small pill with color-coded background/text based on status
     const getStatusClasses = (status) => {
         switch (status) {
             case 'Accepted':
@@ -60,7 +59,6 @@ const AdminPanel = () => {
         }
     };
 
-    // Returns a colored border on the left side of each card
     const getBorderClasses = (status) => {
         switch (status) {
             case 'Accepted':

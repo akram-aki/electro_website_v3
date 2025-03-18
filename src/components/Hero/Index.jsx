@@ -1,4 +1,4 @@
-import DownIcon from "../../assets/DownIcon.svg"; // Adjust the path as necessary
+import DownIcon from "../../assets/DownIcon.svg";
 import ellipseImage from "../../assets/Ellipse 8.png";
 
 import { Secondary_button } from "../button/Index";
