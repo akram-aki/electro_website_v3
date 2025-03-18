@@ -75,7 +75,7 @@ const HorizontalScrollCarousel = () => {
     <section ref={targetRef} className={`relative ${isMobile ? "h-auto" : "h-[400vh]"}`}>
       <div className={`sticky top-0 flex ${isMobile ? "flex-col" : "h-screen w-full"}`}>
         {/* Progress Bar */}
-        <div className="bg-[#e9e8e4] relative overflow-hidden border border-white h-7 flex items-center mt-12 w-full mx-10 p-1 rounded-full">
+        <div className="bg-[#e9e8e4] relative overflow-hidden border border-white h-7 items-center mt-12 w-full mx-10 p-1 rounded-full hidden md:flex">
           <motion.div
             style={{ x }}
             transition={{ ease: "easeOut", duration: 100 }}

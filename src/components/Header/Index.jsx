@@ -31,7 +31,7 @@ function Header({ hidden, ...attributes }) {
         </div>
         <div className="w-1/12" />
       </div>
-      <div className="xl:h-[107px]" />
+      <div className="lg:h-[107px]" />
     </div >
   );
 }
