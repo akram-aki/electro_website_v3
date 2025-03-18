@@ -21,7 +21,7 @@ const projects = [
   {
     projectTitle: "Solar Following Robot",
     projectAuthor: "Youcef Boubidi",
-    projectImg: "crypto.png",
+    projectImg: "solarTracker.jpg",
   },
   {
     projectTitle: "Mini CNC Plotter",

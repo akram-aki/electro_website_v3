@@ -12,7 +12,7 @@ const description = [
     desc1:
       "Attendees get to experience beginner friendly introduction and hands-on experience by motivated and experienced mentors.",
     desc2:
-      "Additional features: we advise you on the additional features you can add to your website. This could be animations, transitions, additional sections, etc.",
+      "",
   },
   {
     header:
