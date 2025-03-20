@@ -11,7 +11,6 @@ const AdminPanel = () => {
         const fetchApplications = async () => {
             try {
                 const querySnapshot = await getDocs(collection(db, 'registrations'));
-                // Only include documents that are visible (isVisible !== false)
                 const apps = querySnapshot.docs
                     .map((doc) => ({ id: doc.id, ...doc.data() }))
                     .filter((app) => app.isVisible !== false);
@@ -37,11 +36,9 @@ const AdminPanel = () => {
         }
     };
 
-    // Instead of deleting, hide the application by updating isVisible to false.
     const hideApplication = async (id) => {
         try {
             await updateDoc(doc(db, 'registrations', id), { isVisible: false });
-            // Remove from UI after update
             setApplications((prev) => prev.filter((app) => app.id !== id));
         } catch (error) {
             console.error('Error hiding application:', error);

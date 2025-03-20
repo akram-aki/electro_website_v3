@@ -2,38 +2,12 @@ import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Destinations from "./Destinations";
 import ProjectCard from "./ProjectCard";
+import { db } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const Index = () => {
   return <HorizontalScrollCarousel />;
 };
-
-const projects = [
-  {
-    projectTitle: "GSM Phone",
-    projectAuthor: "Yasser Boudahdir",
-    projectImg: "gsmPhone.jpg",
-  },
-  {
-    projectTitle: "Joystick Controlled Robotic Arm",
-    projectAuthor: "Amer Marouche",
-    projectImg: "CV Powered Robotic Arm.png",
-  },
-  {
-    projectTitle: "Solar Following Robot",
-    projectAuthor: "Youcef Boubidi",
-    projectImg: "solarTracker.jpg",
-  },
-  {
-    projectTitle: "Mini CNC Plotter",
-    projectAuthor: "Oussama Bouyahiaoui",
-    projectImg: "miniCnc.jpg",
-  },
-  {
-    projectTitle: "Cryptocurrency tracker with the GIGA Display Shield",
-    projectAuthor: "Youcef Boubidi",
-    projectImg: "crypto.png",
-  },
-];
 
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -56,8 +30,8 @@ const HorizontalScrollCarousel = () => {
   const [count, setCount] = useState(0);
   const isMobile = useIsMobile();
 
+  // Fetch scroll progress transformations
   const { scrollYProgress } = useScroll({ target: targetRef });
-
   const transformX = useTransform(scrollYProgress, [0, 1], ["3%", "95%"]);
   const transformX2 = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
   const transformRotate = useTransform(scrollYProgress, [0, 1], [0, 1440]);
@@ -116,8 +90,7 @@ const HorizontalScrollCarousel = () => {
         <Destinations className="gap-3 absolute top-28 left-12 hidden md:flex" count={count} type="Eventssas" />
 
         <div
-          className={`absolute left-0 top-20 w-full ${isMobile ? "h-auto relative" : "h-[88vh]"
-            } flex items-center justify-start overflow-hidden`}
+          className={`absolute left-0 top-20 w-full ${isMobile ? "h-auto relative" : "h-[88vh]"} flex items-center justify-start overflow-hidden`}
         >
           <Projects style={{ x: x2 }} />
         </div>
@@ -127,57 +100,89 @@ const HorizontalScrollCarousel = () => {
 };
 
 const Projects = ({ ...attributes }) => {
+  const [projectsData, setProjectsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "projects"));
+        // Map only projectTitle and projectAuthor from each document
+        const projectsFetched = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          projectTitle: doc.data().projectTitle,
+          projectAuthor: doc.data().projectAuthor,
+          projectImg: doc.data().projectImg,
+        }));
+        setProjectsData(projectsFetched);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
   return (
     <>
       {/* Desktop: Horizontal Carousel */}
       <motion.div className="hidden md:flex flex-shrink-0 gap-16 pr-16 min-w-max" {...attributes}>
-        {projects.map((project, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              transition: { type: "spring", stiffness: 50, delay: index * 0.1 },
-            }}
-            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="flex-shrink-0"
-          >
-            <ProjectCard
-              projectImg={project.projectImg}
-              projectAuthor={project.projectAuthor}
-              projectTitle={project.projectTitle}
-            />
-          </motion.div>
-        ))}
+        {loading ? (
+          <p>Loading projects...</p>
+        ) : (
+          projectsData.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                transition: { type: "spring", stiffness: 50, delay: index * 0.1 },
+              }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex-shrink-0"
+            >
+              <ProjectCard
+                projectTitle={project.projectTitle}
+                projectAuthor={project.projectAuthor}
+                projectImg={project.projectImg}
+              />
+            </motion.div>
+          ))
+        )}
       </motion.div>
 
       {/* Mobile: Vertical List */}
       <div className="md:hidden flex flex-col gap-4 px-4 py-4">
-        {projects.map((project, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              transition: { type: "spring", stiffness: 50, delay: index * 0.1 },
-            }}
-            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <ProjectCard
-              projectImg={project.projectImg}
-              projectAuthor={project.projectAuthor}
-              projectTitle={project.projectTitle}
-            />
-          </motion.div>
-        ))}
+        {loading ? (
+          <p>Loading projects...</p>
+        ) : (
+          projectsData.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                transition: { type: "spring", stiffness: 50, delay: index * 0.1 },
+              }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <ProjectCard
+                projectTitle={project.projectTitle}
+                projectAuthor={project.projectAuthor}
+              />
+            </motion.div>
+          ))
+        )}
       </div>
     </>
   );

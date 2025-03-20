@@ -14,6 +14,8 @@ import HeroImage from "./components/HeroImage";
 import ElectroBotRumble from "./pages/ElectroBotRumble";
 import ScrollingBanner from "./components/ScrollingBanner";
 import AdminPage from "./pages/AdminPage";
+import AddProjects from "./pages/AddProjects";
+import AddProjectsAdmin from "./pages/AddProjectsAdmin";
 function Home() {
   const headerRef = useRef(null);
   const heroRef = useRef(null);
@@ -69,6 +71,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/electrobot-rumble" element={<ElectroBotRumble />} />
         <Route path="/electrobot-applications" element={<AdminPage />} />
+        <Route path="/add-projects" element={<AddProjectsAdmin />} />
       </Routes>
     </Router>
   );
