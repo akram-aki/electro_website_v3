@@ -61,7 +61,7 @@ const RegistrationForm = () => {
             ]);
         }
     };
-
+    //auto deploy test
     const removeMember = (index) => {
         if (members.length === 1) {
             alert("You must have at least one member.");
