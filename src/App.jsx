@@ -32,7 +32,7 @@ function Home() {
 
   return (
     <>
-      {/* <ScrollingBanner /> */}
+      <ScrollingBanner />
       <Navbar sectionsRefs={sectionsRefs} />
       <div className="xl:mt-16 xl:mx-16 mt-8 mx-6">
         <section id="header" ref={headerRef}>
