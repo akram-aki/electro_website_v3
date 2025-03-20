@@ -15,6 +15,7 @@ import ElectroBotRumble from "./pages/ElectroBotRumble";
 import AdminPage from "./pages/AdminPage";
 import AddProjectsAdmin from "./pages/AddProjectsAdmin";
 import AddEventsAdmin from "./pages/AddEventsAdmin";
+import ScrollingBanner from "./components/ScrollingBanner"
 function Home() {
   const headerRef = useRef(null);
   const heroRef = useRef(null);
