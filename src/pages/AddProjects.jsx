@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
-import { collection, getDocs, addDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore';
 
 const AddProjects = () => {
     const [projects, setProjects] = useState([]);
@@ -64,9 +64,9 @@ const AddProjects = () => {
                 projectAuthor,
                 projectImg: imageUrl,
             };
-            await addDoc(collection(db, 'projects'), newProject);
+            const docRef = await addDoc(collection(db, 'projects'), newProject);
             alert("Project added successfully!");
-            setProjects(prev => [...prev, newProject]);
+            setProjects(prev => [...prev, { id: docRef.id, ...newProject }]);
             setProjectTitle('');
             setProjectAuthor('');
             setProjectImageFile(null);
@@ -75,6 +75,18 @@ const AddProjects = () => {
             alert("Error adding project. Please try again.");
         } finally {
             setUploading(false);
+        }
+    };
+
+    const handleDeleteProject = async (id) => {
+        if (!window.confirm("Are you sure you want to delete this project?")) return;
+        try {
+            await deleteDoc(doc(db, 'projects', id));
+            setProjects(prev => prev.filter(project => project.id !== id));
+            alert("Project deleted successfully!");
+        } catch (error) {
+            console.error("Error deleting project:", error);
+            alert("Error deleting project. Please try again.");
         }
     };
 
@@ -101,6 +113,12 @@ const AddProjects = () => {
                                         className="mt-2 w-full h-48 object-cover rounded"
                                     />
                                 )}
+                                <button
+                                    onClick={() => handleDeleteProject(project.id)}
+                                    className="mt-4 bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
+                                >
+                                    Delete
+                                </button>
                             </div>
                         ))}
                     </div>

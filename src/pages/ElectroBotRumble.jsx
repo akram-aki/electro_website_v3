@@ -23,6 +23,7 @@ const RegistrationForm = () => {
             projects: '',
             github: '',
             linkedin: '',
+            needsAccommodation: false,
         },
     ]);
 
@@ -79,9 +80,12 @@ const RegistrationForm = () => {
     const handleMemberChange = (e, index) => {
         const { name, value } = e.target;
         const newMembers = [...members];
-        newMembers[index][name] = value;
+
+        newMembers[index][name] = name === "needsAccommodation" ? value === "true" : value;
         setMembers(newMembers);
     };
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -112,11 +116,16 @@ const RegistrationForm = () => {
         <div className='flex flex-col mx-4 md:mx-20 my-10 justify-center'>
             <Header hidden={true} className='mb-5' />
             <div className="flex justify-center pb-6 bg-gray-100 min-h-screen">
+
                 <form
                     className="w-full max-w-3xl bg-white border border-[#70a939] p-6 md:p-8 rounded shadow-md"
                     onSubmit={handleSubmit}
                 >
-                    <h1 className="text-center text-2xl md:text-3xl font-bold text-[#70a939]">ELECTROBOT RUMBLE 2025</h1>
+                    <div className="-m-6 md:-m-8">
+                        <img src="RUMBLE_TIME_1.png" alt="" className="w-full h-auto block" />
+                    </div>
+
+                    <h1 className="text-center text-2xl md:text-3xl font-bold text-[#70a939] md:mt-16">ELECTROBOT RUMBLE 2025</h1>
                     <h2 className="text-center text-xl md:text-2xl font-semibold mt-2">REGISTRATION FORM</h2>
                     <p className="text-center text-gray-700 mt-1">Organized by Electro Scientific Club</p>
 
@@ -297,7 +306,35 @@ const RegistrationForm = () => {
                                     placeholder="https://linkedin.com/username"
                                     className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
                                 />
+                            </div><div className="mt-3">
+                                <label className="block mb-1">Need Accommodation?</label>
+                                <div className="flex space-x-4 mt-1">
+                                    <label className="inline-flex items-center">
+                                        <input
+                                            type="radio"
+                                            name="needsAccommodation"
+                                            value="true"
+                                            checked={member.needsAccommodation === true}
+                                            onChange={(e) => handleMemberChange(e, index)}
+                                            className="mr-2"
+                                        />
+                                        Yes
+                                    </label>
+                                    <label className="inline-flex items-center">
+                                        <input
+                                            type="radio"
+                                            name="needsAccommodation"
+                                            value="false"
+                                            checked={member.needsAccommodation === false}
+                                            onChange={(e) => handleMemberChange(e, index)}
+                                            className="mr-2"
+                                        />
+                                        No
+                                    </label>
+                                </div>
                             </div>
+
+
                             <button
                                 type="button"
                                 className="mt-4 rounded-sm bg-red-800 w-full sm:w-1/3 py-1 text-white text-sm"

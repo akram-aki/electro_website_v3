@@ -86,9 +86,7 @@ const AdminPanel = () => {
                                     return (
                                         <div
                                             key={app.id}
-                                            className={`p-4 rounded bg-gray-50 border ${getBorderClasses(
-                                                status
-                                            )}`}
+                                            className={`p-4 rounded bg-gray-50 border ${getBorderClasses(status)}`}
                                         >
                                             <h2 className="text-xl font-semibold mb-2">
                                                 {app.teamInfo.teamName}
@@ -148,6 +146,9 @@ const AdminPanel = () => {
                                                                 </p>
                                                                 <p>
                                                                     <strong>LinkedIn:</strong> {member.linkedin || 'N/A'}
+                                                                </p>
+                                                                <p>
+                                                                    <strong>Needs Accommodation:</strong> {member.needsAccommodation ? 'Yes' : 'No'}
                                                                 </p>
                                                             </li>
                                                         ))}
