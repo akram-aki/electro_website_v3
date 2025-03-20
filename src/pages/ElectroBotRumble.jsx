@@ -125,7 +125,7 @@ const RegistrationForm = () => {
                         <img src="RUMBLE_TIME_1.png" alt="" className="w-full h-auto block" />
                     </div>
 
-                    <h1 className="text-center text-2xl md:text-3xl font-bold text-[#70a939] md:mt-16">ELECTROBOT RUMBLE 2025</h1>
+                    <h1 className="text-center text-2xl md:text-3xl font-bold text-[#70a939] md:mt-16 mt-10">ELECTROBOT RUMBLE 2025</h1>
                     <h2 className="text-center text-xl md:text-2xl font-semibold mt-2">REGISTRATION FORM</h2>
                     <p className="text-center text-gray-700 mt-1">Organized by Electro Scientific Club</p>
 
