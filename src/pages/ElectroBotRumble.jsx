@@ -31,6 +31,7 @@ const RegistrationForm = () => {
     const [signatureDate, setSignatureDate] = useState('');
     const [technicalSheet, setTechnicalSheet] = useState(null);
     const [studentIDs, setStudentIDs] = useState(null);
+    const [submitted, setSubmitted] = useState(false); // New state variable for submission
 
     const addMember = () => {
         const allFilled = members.every(member =>
@@ -62,7 +63,7 @@ const RegistrationForm = () => {
             ]);
         }
     };
-    //auto deploy test
+
     const removeMember = (index) => {
         if (members.length === 1) {
             alert("You must have at least one member.");
@@ -80,12 +81,9 @@ const RegistrationForm = () => {
     const handleMemberChange = (e, index) => {
         const { name, value } = e.target;
         const newMembers = [...members];
-
         newMembers[index][name] = name === "needsAccommodation" ? value === "true" : value;
         setMembers(newMembers);
     };
-
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -97,7 +95,8 @@ const RegistrationForm = () => {
                 signatureDate,
                 submittedAt: serverTimestamp(),
             });
-            alert("Thank you for your registration! Keep an eye out for the confirmation email from us.");
+            // Instead of alert, update state to show thank you page
+            setSubmitted(true);
         } catch (error) {
             console.error("Error submitting registration:", error);
             alert("Error submitting registration. Please try again later.");
@@ -112,11 +111,23 @@ const RegistrationForm = () => {
         });
     };
 
-    return (
-        <div className='flex flex-col mx-4 md:mx-20 my-10 justify-center'>
-            <Header hidden={true} className='mb-5' />
-            <div className="flex justify-center pb-6 bg-gray-100 min-h-screen">
+    // Render thank you page if submitted
+    if (submitted) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+                <Header hidden={true} />
+                <div className="bg-white p-8 rounded shadow-md text-center">
+                    <h1 className="text-3xl font-bold mb-4">Thank You for Your Registration!</h1>
+                    <p className="text-lg text-gray-700">Keep an eye out for the confirmation email from us.</p>
+                </div>
+            </div>
+        );
+    }
 
+    return (
+        <div className="flex flex-col mx-4 md:mx-20 my-10 justify-center">
+            <Header hidden={true} className="mb-5" />
+            <div className="flex justify-center pb-6 bg-gray-100 min-h-screen">
                 <form
                     className="w-full max-w-3xl bg-white border border-[#70a939] p-6 md:p-8 rounded shadow-md"
                     onSubmit={handleSubmit}
@@ -306,7 +317,8 @@ const RegistrationForm = () => {
                                     placeholder="https://linkedin.com/username"
                                     className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
                                 />
-                            </div><div className="mt-3">
+                            </div>
+                            <div className="mt-3">
                                 <label className="block mb-1">Need Accommodation?</label>
                                 <div className="flex space-x-4 mt-1">
                                     <label className="inline-flex items-center">
@@ -333,8 +345,6 @@ const RegistrationForm = () => {
                                     </label>
                                 </div>
                             </div>
-
-
                             <button
                                 type="button"
                                 className="mt-4 rounded-sm bg-red-800 w-full sm:w-1/3 py-1 text-white text-sm"
