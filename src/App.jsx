@@ -15,7 +15,7 @@ import ElectroBotRumble from "./pages/ElectroBotRumble";
 import AdminPage from "./pages/AdminPage";
 import AddProjectsAdmin from "./pages/AddProjectsAdmin";
 import AddEventsAdmin from "./pages/AddEventsAdmin";
-import ScrollingBanner from "./components/ScrollingBanner"
+import ScrollingBanner from "./components/ScrollingBanner";
 function Home() {
   const headerRef = useRef(null);
   const heroRef = useRef(null);
@@ -39,7 +39,11 @@ function Home() {
         <section id="header" ref={headerRef}>
           <Header />
         </section>
-        <section id="hero" ref={heroRef} className="xl:my-[110px] my-2 flex flex-col">
+        <section
+          id="hero"
+          ref={heroRef}
+          className="xl:my-[110px] my-2 flex flex-col"
+        >
           <Hero />
           <div className="mx-auto xl:mx-0">
             <Markee />
@@ -52,9 +56,9 @@ function Home() {
         <section id="events" ref={eventsRef}>
           <Events />
         </section>
-        <section id="projects" ref={projectsRef} className="">
+        {/* <section id="projects" ref={projectsRef} className="">
           <Projects />
-        </section>
+        </section> */}
         <section id="communityDiscord" ref={communityDiscordRef}>
           <CommunityDiscord />
         </section>

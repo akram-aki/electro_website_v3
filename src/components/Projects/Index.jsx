@@ -1,6 +1,4 @@
-import { Secondary_button } from "../button/Index";
 import StealScroll from "../stealScrollProjects/Index";
-import DownIcon from "../../assets/DownIcon.svg";
 function Projects() {
   return (
     <>
@@ -12,10 +10,10 @@ function Projects() {
           </h1>
           <div className="xl:w-6/12">
             <span className="font-semibold text-[#686868] xl:text-[22px]">
-              Check out the most notable Projects hosted by Electro Scientific Club!
+              Check out the most notable Projects hosted by Electro Scientific
+              Club!
             </span>
-            <div className="flex mt-16">
-            </div>
+            <div className="flex mt-16"></div>
           </div>
         </div>
         <StealScroll />

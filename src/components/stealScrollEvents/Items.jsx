@@ -1,22 +1,27 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Secondary_button } from "../button/Index";
-import RightArrow from "../../assets/RightArrow.svg";
 
+// List of image URLs to preload
+const images = [
+  "/IMG_0110.JPG",
+  "/welcomeDay-min.JPG",
+  "/IMG_20240516_042629_313.jpg",
+  "/TEKKID.png",
+];
+
+// Descriptions corresponding to each image/index
 const description = [
   {
-    header:
-      "Arduino Workshop",
+    header: "Arduino Workshop",
     title:
-      "Yearly Arduino Workshops which cover all fundamentals! basics, actuators, sensors, displays, and communications. ",
+      "Yearly Arduino Workshops which cover all fundamentals! basics, actuators, sensors, displays, and communications.",
     desc1:
       "Attendees get to experience beginner friendly introduction and hands-on experience by motivated and experienced mentors.",
     desc2:
-      "",
+      "Attendees get to experience beginner friendly introduction and hands-on experience by motivated and experienced mentors.",
   },
   {
-    header:
-      "Welcome Day",
+    header: "Welcome Day",
     title:
       "The yearly Welcome Day events are introductory events which welcome all new members to the club...",
     desc1:
@@ -25,8 +30,7 @@ const description = [
       "All attendees who later attest to their learning by creating a project obtain a certificate signed by Electro Scientific President.",
   },
   {
-    header:
-      "Chess Competition",
+    header: "Chess Competition",
     title:
       "The 2024 Electro Club Chess Competition was the club's first national chess competition with more than 20 participants.",
     desc1:
@@ -35,8 +39,7 @@ const description = [
       "The final match, watched by faculty students and staff, where the 2 finalists battled in an hour-long match.",
   },
   {
-    header:
-      "External Visits",
+    header: "External Visits",
     title:
       "Multiple external visits that partake in different universities around the country.",
     desc1:
@@ -46,98 +49,104 @@ const description = [
   },
 ];
 
+/**
+ * Custom hook: preloads an array of image URLs and caches HTMLImageElement objects.
+ * Returns a `loaded` boolean and a Map cache of src -> HTMLImageElement.
+ */
+function useImagePreloader(srcArray) {
+  const cacheRef = useRef(new Map());
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    let isCancelled = false;
+    const promises = srcArray.map((src) => {
+      if (cacheRef.current.has(src)) return Promise.resolve();
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => {
+          cacheRef.current.set(src, img);
+          resolve();
+        };
+        img.onerror = () => resolve();
+      });
+    });
+    Promise.all(promises).then(() => {
+      if (!isCancelled) setLoaded(true);
+    });
+    return () => {
+      isCancelled = true;
+    };
+  }, [srcArray]);
+
+  return { loaded, cache: cacheRef.current };
+}
+
 export default function Items({ count, ...attributes }) {
-  const [showModal, setShowModal] = useState(false);
-  count > 3 ? count = 3 : '';
-  console.log(count)
+  // clamp count
+  const safeCount = Math.min(count, images.length - 1);
+  const currentDescription = useMemo(() => description[safeCount], [safeCount]);
+
+  // preload images and block render until done
+  const { loaded, cache } = useImagePreloader(images);
+
+  if (!loaded) {
+    return (
+      <div {...attributes} className="h-full flex items-center justify-center">
+        <span>Loading…</span>
+      </div>
+    );
+  }
+
+  // get cached image src (eager load)
+  const src = cache.get(images[safeCount])?.src || images[safeCount];
+
   return (
     <div {...attributes}>
       <div className="p-6 grid">
         <AnimatePresence mode="wait">
           <motion.div
-            key={count}
-            initial={{ opacity: 1, x: 10 }}
+            key={safeCount}
+            initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 10 }}
-            transition={{ opacity: { duration: 0.1, ease: "easeInOut" }, x: { duration: 0.2 } }}
+            transition={{ duration: 0.1, ease: "easeInOut" }}
             className="h-full w-full"
           >
-            <>
-              <h1 className="text-3xl font-bold xl:mb-16 mb-9">
-                {description[count].header}
-              </h1>
-              <p className="font-semibold text-Text2 text-sm xl:text-lg mb-8 md:mb-0">
-                {description[count]?.title}
-              </p>
-              <ul className="list-disc p-4  gap-2 xl:mb-16 text-sm xl:text-lg hidden md:block">
-
-                <li className="text-Text4">{description[count]?.desc1}</li>
-                <li className="text-Text4">{description[count]?.desc2}</li>
-
-              </ul>
-            </>
-
-
-            <div className="flex gap-8">
-              <Secondary_button onClick={() => setShowModal(true)}>
-                <div className="flex gap-8 items-center">
-                  <p>More details</p>
-                  <img src={RightArrow} alt="" className="w-8 h-8" />
-                </div>
-              </Secondary_button>
-            </div>
-
+            <h1 className="text-3xl font-bold xl:mb-16 mb-9">
+              {currentDescription.header}
+            </h1>
+            <p className="font-semibold text-Text2 text-sm xl:text-lg mb-8 md:mb-0">
+              {currentDescription.title}
+            </p>
+            <ul className="list-disc p-4 gap-2 xl:mb-16 text-sm xl:text-lg md:block">
+              <li className="text-Text4 text-justify">
+                {currentDescription.desc1}
+              </li>
+              <li className="text-Text4 text-justify">
+                {currentDescription.desc2}
+              </li>
+            </ul>
           </motion.div>
         </AnimatePresence>
       </div>
 
-      <div className="relative h-full w-fit overflow-hidden">
+      <div className="relative h-full w-full overflow-hidden rounded-2xl lg:p-0 p-5">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={count}
-            initial={{ opacity: 0, x: 400 }}
+          <motion.img
+            key={src}
+            src={src}
+            alt={`event-${safeCount}`}
+            initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 400 }}
-            transition={{ opacity: { duration: 0.1, ease: "easeInOut" }, x: { duration: 0.2 } }}
-            className="h-full w-full"
-          >
-            {count < 4 && (
-              <img
-                alt={count === 2 ? "image" : count === 3 ? "diii" : "idks"}
-                src={
-                  count === 0
-                    ? "/IMG_0110.JPG"
-                    : count === 1
-                      ? "/welcomeDay-min.JPG"
-                      : count === 2
-                        ? "/IMG_20240516_042629_313.jpg"
-                        : "/TEKKID.png"
-
-                }
-                className="object-cover rounded-2xl xl:h-full xl:w-full"
-              />
-            )}
-          </motion.div>
+            exit={{ opacity: 0, x: 10 }}
+            transition={{ duration: 0.1, ease: "easeInOut" }}
+            className="object-cover w-full h-full rounded-2xl lg:rounded-none"
+            loading="eager"
+            decoding="async"
+          />
         </AnimatePresence>
       </div>
-
-      {
-        showModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-0 flex justify-center items-center z-50">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md"
-            >
-              <h2 className="text-xl font-bold mb-4">More Details</h2>
-              <p className="text-sm mb-2">{description[count]?.desc1}</p>
-              <p className="text-sm mb-4">{description[count]?.desc2}</p>
-              <button onClick={() => setShowModal(false)} className="bg-red-500 text-white px-4 py-2 rounded">Close</button>
-            </motion.div>
-          </div>
-        )
-      }
-    </div >
+    </div>
   );
 }

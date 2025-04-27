@@ -13,8 +13,7 @@ function Events() {
           <span className="font-semibold text-[#686868] xl:text-[22px]">
             Check out the most notable Events hosted by Electro Scientific Club!
           </span>
-          <div className="flex mt-16">
-          </div>
+          <div className="flex mt-16"></div>
         </div>
       </div>
       <StealScroll />
