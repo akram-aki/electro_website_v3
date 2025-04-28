@@ -73,7 +73,8 @@ const SlideTabs = ({ sectionsRefs = {} }) => {
       const visibleEntries = entries.filter((entry) => entry.isIntersecting);
       if (visibleEntries.length > 0) {
         const topEntry = visibleEntries.reduce((prev, curr) =>
-          Math.abs(prev.boundingClientRect.top) < Math.abs(curr.boundingClientRect.top)
+          Math.abs(prev.boundingClientRect.top) <
+          Math.abs(curr.boundingClientRect.top)
             ? prev
             : curr
         );
@@ -145,7 +146,18 @@ const SlideTabs = ({ sectionsRefs = {} }) => {
   );
 };
 const Tab = React.forwardRef(
-  ({ href, children, setCursorPos, onClick, isActive, className = "", ...attributes }, ref) => {
+  (
+    {
+      href,
+      children,
+      setCursorPos,
+      onClick,
+      isActive,
+      className = "",
+      ...attributes
+    },
+    ref
+  ) => {
     return (
       <a
         ref={ref}
@@ -159,18 +171,18 @@ const Tab = React.forwardRef(
             opacity: 1,
           });
         }}
-        onClick={(e) => {
-          onClick(e);
-        }}
-        className={`relative z-10 block cursor-pointer px-3 py-1.5 text-xs text-white mix-blend-difference md:px-5 md:py-3 md:text-base transition-colors duration-200 rounded-full ${isActive ? "" : "hover:bg-[#666666]"
-          } ${className}`}
+        // onClick={(e) => {
+        //   onClick(e);
+        // }}
+        className={`relative z-10 block cursor-pointer px-3 py-1.5 text-xs text-white mix-blend-difference md:px-5 md:py-3 md:text-base transition-colors duration-200 rounded-full ${
+          isActive ? "" : "hover:bg-[#666666]"
+        } ${className}`}
       >
         {children}
       </a>
     );
   }
 );
-
 
 const Cursor = ({ position, ...attributes }) => {
   return (

@@ -20,7 +20,7 @@ function Hero() {
         }}
         className="z-0"
       ></div> */}
-      <h1 className="font-bold text-4xl md:text-[44px] leading-tight z-50 text-main">
+      <h1 className="font-bold text-4xl md:text-[44px] leading-tight z-0 text-main">
         We are a <span className="text-[#70a939]">quick-growing </span>
         community of highly passionate and motivated members.
       </h1>

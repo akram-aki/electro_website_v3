@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // List of image URLs to preload
 const images = [
-  "/IMG_0110.JPG",
-  "/welcomeDay-min.JPG",
+  "/IMG_0110.jpg",
+  "/welcomeDay-min.jpg",
   "/IMG_20240516_042629_313.jpg",
-  "/TEKKID.png",
+  "/TEKKID.jpg",
 ];
 
 // Descriptions corresponding to each image/index

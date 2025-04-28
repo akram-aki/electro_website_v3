@@ -33,24 +33,20 @@ function Home() {
 
   return (
     <>
-      <ScrollingBanner />
+      {/* <ScrollingBanner /> */}
       <Navbar sectionsRefs={sectionsRefs} />
       <div className="xl:mt-16 xl:mx-16 mt-8 mx-6">
         <section id="header" ref={headerRef}>
           <Header />
         </section>
-        <section
-          id="hero"
-          ref={heroRef}
-          className="xl:my-[110px] my-2 flex flex-col"
-        >
+        <section id="hero" ref={heroRef} className=" my-4 flex flex-col">
           <Hero />
           <div className="mx-auto xl:mx-0">
             <Markee />
           </div>
         </section>
         <HeroImage />
-        <section id="whatDoWeProvide" ref={whatDoWeProvideRef}>
+        <section id="events" ref={whatDoWeProvideRef}>
           <WhatDoWeProvide />
         </section>
         <section id="events" ref={eventsRef}>
