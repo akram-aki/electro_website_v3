@@ -46,7 +46,7 @@ function Home() {
           </div>
         </section>
         <HeroImage />
-        <section id="events" ref={whatDoWeProvideRef}>
+        <section id="moreInfo" ref={whatDoWeProvideRef}>
           <WhatDoWeProvide />
         </section>
         <section id="events" ref={eventsRef}>

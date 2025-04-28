@@ -4,6 +4,9 @@ body {
   background-color: #f4f4f2;
   font-family: "Sora", sans-serif;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 .gradient-text {
   background-image: linear-gradient(to right, yellow, green, blue);
