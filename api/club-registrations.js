@@ -1,11 +1,14 @@
-import { neon } from '@neondatabase/serverless';
-
 export default async function handler(req, res) {
   try {
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+      return res.status(200).end();
+    }
 
     // Check if DATABASE_URL is configured
     if (!process.env.DATABASE_URL) {
@@ -15,13 +18,9 @@ export default async function handler(req, res) {
       });
     }
 
-    // Initialize Neon database connection
+    // Initialize Neon database connection with dynamic import
+    const { neon } = await import('@neondatabase/serverless');
     const sql = neon(process.env.DATABASE_URL);
-
-    // Handle preflight requests
-    if (req.method === 'OPTIONS') {
-      return res.status(200).end();
-    }
 
     // Add a simple health check endpoint
     if (req.method === 'GET' && req.url === '/api/club-registrations/health') {
