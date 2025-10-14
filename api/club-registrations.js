@@ -1,22 +1,38 @@
 import { neon } from '@neondatabase/serverless';
 
-// Initialize Neon database connection
-const sql = neon(process.env.DATABASE_URL);
-
 export default async function handler(req, res) {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  try {
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  // Handle preflight requests
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
+    // Check if DATABASE_URL is configured
+    if (!process.env.DATABASE_URL) {
+      console.error('DATABASE_URL environment variable is not set');
+      return res.status(500).json({ 
+        error: 'Database configuration error' 
+      });
+    }
 
-  if (req.method === 'POST') {
-    try {
+    // Initialize Neon database connection
+    const sql = neon(process.env.DATABASE_URL);
+
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+      return res.status(200).end();
+    }
+
+    // Add a simple health check endpoint
+    if (req.method === 'GET' && req.url === '/api/club-registrations/health') {
+      return res.status(200).json({ 
+        status: 'ok', 
+        timestamp: new Date().toISOString(),
+        env_check: !!process.env.DATABASE_URL
+      });
+    }
+
+    if (req.method === 'POST') {
       const {
         name,
         familyName,
@@ -91,26 +107,10 @@ export default async function handler(req, res) {
           submittedAt: result[0].created_at
         }
       });
-
-    } catch (error) {
-      console.error('Database error:', error);
-      
-      // Handle specific database errors
-      if (error.code === '23505') { // PostgreSQL unique violation
-        return res.status(409).json({ 
-          error: 'Email or student card number already registered' 
-        });
-      }
-
-      return res.status(500).json({ 
-        error: 'Internal server error. Please try again later.' 
-      });
     }
-  }
 
-  // Handle GET requests - fetch all registrations (admin use)
-  else if (req.method === 'GET') {
-    try {
+    // Handle GET requests - fetch all registrations (admin use)
+    else if (req.method === 'GET') {
       // Simple authentication check (you can enhance this)
       const authHeader = req.headers.authorization;
       if (!authHeader || authHeader !== `Bearer ${process.env.ADMIN_TOKEN}`) {
@@ -131,18 +131,18 @@ export default async function handler(req, res) {
         data: registrations,
         count: registrations.length
       });
-
-    } catch (error) {
-      console.error('Database error:', error);
-      return res.status(500).json({ 
-        error: 'Internal server error' 
-      });
     }
-  }
 
-  // Method not allowed
-  else {
-    res.setHeader('Allow', ['GET', 'POST', 'OPTIONS']);
-    return res.status(405).json({ error: 'Method not allowed' });
+    // Method not allowed
+    else {
+      res.setHeader('Allow', ['GET', 'POST', 'OPTIONS']);
+      return res.status(405).json({ error: 'Method not allowed' });
+    }
+  } catch (functionError) {
+    console.error('Function execution error:', functionError);
+    return res.status(500).json({ 
+      error: 'Function execution failed',
+      details: process.env.NODE_ENV === 'development' ? functionError.message : undefined
+    });
   }
 }
