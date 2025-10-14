@@ -18,7 +18,7 @@ const ClubRegistrationsAdmin = () => {
         setError('');
 
         try {
-            const response = await fetch('/api/club-registrations', {
+            const response = await fetch('/api/club-registrations-admin', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${adminToken}`,

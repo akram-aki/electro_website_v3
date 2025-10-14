@@ -10,28 +10,31 @@ export default async function handler(req, res) {
       return res.status(200).end();
     }
 
-    // Check if DATABASE_URL is configured
-    if (!process.env.DATABASE_URL) {
-      console.error('DATABASE_URL environment variable is not set');
-      return res.status(500).json({ 
-        error: 'Database configuration error' 
-      });
-    }
-
-    // Initialize Neon database connection with dynamic import
-    const { neon } = await import('@neondatabase/serverless');
-    const sql = neon(process.env.DATABASE_URL);
-
-    // Add a simple health check endpoint
-    if (req.method === 'GET' && req.url === '/api/club-registrations/health') {
+    // Simple health check for GET requests without query params
+    if (req.method === 'GET') {
       return res.status(200).json({ 
         status: 'ok', 
+        message: 'Club registrations API is working',
         timestamp: new Date().toISOString(),
-        env_check: !!process.env.DATABASE_URL
+        hasDatabase: !!process.env.DATABASE_URL,
+        hasAdminToken: !!process.env.ADMIN_TOKEN
       });
     }
 
+    // Handle POST requests
     if (req.method === 'POST') {
+      // Check if DATABASE_URL is configured
+      if (!process.env.DATABASE_URL) {
+        console.error('DATABASE_URL environment variable is not set');
+        return res.status(500).json({ 
+          error: 'Database configuration error' 
+        });
+      }
+
+      // Initialize Neon database connection with dynamic import
+      const { neon } = await import('@neondatabase/serverless');
+      const sql = neon(process.env.DATABASE_URL);
+
       const {
         name,
         familyName,
@@ -108,35 +111,11 @@ export default async function handler(req, res) {
       });
     }
 
-    // Handle GET requests - fetch all registrations (admin use)
-    else if (req.method === 'GET') {
-      // Simple authentication check (you can enhance this)
-      const authHeader = req.headers.authorization;
-      if (!authHeader || authHeader !== `Bearer ${process.env.ADMIN_TOKEN}`) {
-        return res.status(401).json({ error: 'Unauthorized' });
-      }
-
-      const registrations = await sql`
-        SELECT 
-          id, name, family_name, email, phone, student_card_number,
-          gender, year_of_studies, major, faculty, motivation, 
-          status, created_at, updated_at
-        FROM club_registrations 
-        ORDER BY created_at DESC
-      `;
-
-      return res.status(200).json({
-        success: true,
-        data: registrations,
-        count: registrations.length
-      });
-    }
-
     // Method not allowed
-    else {
-      res.setHeader('Allow', ['GET', 'POST', 'OPTIONS']);
-      return res.status(405).json({ error: 'Method not allowed' });
-    }
+    return res.status(405).json({ 
+      error: 'Method not allowed',
+      allowed: ['GET', 'POST', 'OPTIONS']
+    });
   } catch (functionError) {
     console.error('Function execution error:', functionError);
     return res.status(500).json({ 

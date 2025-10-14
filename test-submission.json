@@ -1,0 +1,12 @@
+{
+  "name": "Test",
+  "familyName": "User", 
+  "email": "test@example.com",
+  "phone": "+213123456789",
+  "studentCardNumber": "TEST001",
+  "gender": "male",
+  "yearOfStudies": "L3",
+  "major": "Electronics",
+  "faculty": "Faculty of Technology",
+  "motivation": "This is a test submission to verify the API is working correctly."
+}
