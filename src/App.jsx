@@ -12,6 +12,8 @@ import Footer from "./components/Footer/Index";
 import CommunityDiscord from "./components/communityDiscord/Index";
 import HeroImage from "./components/HeroImage";
 import ElectroBotRumble from "./pages/ElectroBotRumble";
+import JoinClub from "./pages/JoinClub";
+import ClubRegistrationsAdmin from "./pages/ClubRegistrationsAdmin";
 import AdminPage from "./pages/AdminPage";
 import AddProjectsAdmin from "./pages/AddProjectsAdmin";
 import AddEventsAdmin from "./pages/AddEventsAdmin";
@@ -70,6 +72,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/electrobot-rumble" element={<ElectroBotRumble />} />
+        <Route path="/join" element={<JoinClub />} />
+        <Route path="/club-registrations-admin" element={<ClubRegistrationsAdmin />} />
         <Route path="/electrobot-applications" element={<AdminPage />} />
         <Route path="/add-projects" element={<AddProjectsAdmin />} />
         <Route path="/add-events" element={<AddEventsAdmin />} />
