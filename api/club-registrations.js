@@ -23,92 +23,128 @@ export default async function handler(req, res) {
 
     // Handle POST requests
     if (req.method === 'POST') {
-      // Check if DATABASE_URL is configured
-      if (!process.env.DATABASE_URL) {
-        console.error('DATABASE_URL environment variable is not set');
-        return res.status(500).json({ 
-          error: 'Database configuration error' 
-        });
-      }
-
-      // Initialize Neon database connection with dynamic import
-      const { neon } = await import('@neondatabase/serverless');
-      const sql = neon(process.env.DATABASE_URL);
-
-      const {
-        name,
-        familyName,
-        email,
-        phone,
-        studentCardNumber,
-        gender,
-        yearOfStudies,
-        major,
-        faculty,
-        motivation
-      } = req.body;
-
-      // Validate required fields
-      if (!name || !familyName || !email || !phone || !studentCardNumber || 
-          !gender || !yearOfStudies || !major || !faculty || !motivation) {
-        return res.status(400).json({ 
-          error: 'All fields are required' 
-        });
-      }
-
-      // Validate email format
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        return res.status(400).json({ 
-          error: 'Invalid email format' 
-        });
-      }
-
-      // Validate gender
-      if (!['male', 'female'].includes(gender)) {
-        return res.status(400).json({ 
-          error: 'Invalid gender value' 
-        });
-      }
-
-      // Validate year of studies
-      if (!['L1', 'L2', 'L3', 'M1', 'M2'].includes(yearOfStudies)) {
-        return res.status(400).json({ 
-          error: 'Invalid year of studies' 
-        });
-      }
-
-      // Check if email or student card number already exists
-      const existingUser = await sql`
-        SELECT id FROM club_registrations 
-        WHERE email = ${email} OR student_card_number = ${studentCardNumber}
-      `;
-
-      if (existingUser.length > 0) {
-        return res.status(409).json({ 
-          error: 'Email or student card number already registered' 
-        });
-      }
-
-      // Insert new registration
-      const result = await sql`
-        INSERT INTO club_registrations (
-          name, family_name, email, phone, student_card_number,
-          gender, year_of_studies, major, faculty, motivation
-        ) VALUES (
-          ${name}, ${familyName}, ${email}, ${phone}, ${studentCardNumber},
-          ${gender}, ${yearOfStudies}, ${major}, ${faculty}, ${motivation}
-        ) RETURNING id, created_at
-      `;
-
-      return res.status(201).json({
-        success: true,
-        message: 'Registration submitted successfully!',
-        data: {
-          id: result[0].id,
-          submittedAt: result[0].created_at
+      try {
+        console.log('POST request received');
+        
+        // Check if DATABASE_URL is configured
+        if (!process.env.DATABASE_URL) {
+          console.error('DATABASE_URL environment variable is not set');
+          return res.status(500).json({ 
+            error: 'Database configuration error' 
+          });
         }
-      });
+
+        console.log('Database URL exists, initializing connection...');
+
+        // Initialize Neon database connection with dynamic import
+        const { neon } = await import('@neondatabase/serverless');
+        const sql = neon(process.env.DATABASE_URL);
+        
+        console.log('Database connection initialized');
+
+        // Log request body for debugging
+        console.log('Request body:', req.body);
+
+        const {
+          name,
+          familyName,
+          email,
+          phone,
+          studentCardNumber,
+          gender,
+          yearOfStudies,
+          major,
+          faculty,
+          motivation
+        } = req.body;
+
+        console.log('Data extracted from request body');
+
+        // Validate required fields
+        console.log('Validating required fields...');
+        if (!name || !familyName || !email || !phone || !studentCardNumber || 
+            !gender || !yearOfStudies || !major || !faculty || !motivation) {
+          console.log('Validation failed: missing fields');
+          return res.status(400).json({ 
+            error: 'All fields are required' 
+          });
+        }
+
+        console.log('Basic validation passed');
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          console.log('Email validation failed');
+          return res.status(400).json({ 
+            error: 'Invalid email format' 
+          });
+        }
+
+        // Validate gender
+        if (!['male', 'female'].includes(gender)) {
+          console.log('Gender validation failed');
+          return res.status(400).json({ 
+            error: 'Invalid gender value' 
+          });
+        }
+
+        // Validate year of studies
+        if (!['L1', 'L2', 'L3', 'M1', 'M2'].includes(yearOfStudies)) {
+          console.log('Year of studies validation failed');
+          return res.status(400).json({ 
+            error: 'Invalid year of studies' 
+          });
+        }
+
+        console.log('All validations passed, checking for existing user...');
+
+        // Check if email or student card number already exists
+        const existingUser = await sql`
+          SELECT id FROM club_registrations 
+          WHERE email = ${email} OR student_card_number = ${studentCardNumber}
+        `;
+
+        console.log('Existing user check completed, found:', existingUser.length, 'records');
+
+        if (existingUser.length > 0) {
+          console.log('User already exists');
+          return res.status(409).json({ 
+            error: 'Email or student card number already registered' 
+          });
+        }
+
+        console.log('Inserting new registration...');
+
+        // Insert new registration
+        const result = await sql`
+          INSERT INTO club_registrations (
+            name, family_name, email, phone, student_card_number,
+            gender, year_of_studies, major, faculty, motivation
+          ) VALUES (
+            ${name}, ${familyName}, ${email}, ${phone}, ${studentCardNumber},
+            ${gender}, ${yearOfStudies}, ${major}, ${faculty}, ${motivation}
+          ) RETURNING id, created_at
+        `;
+
+        console.log('Registration inserted successfully:', result);
+
+        return res.status(201).json({
+          success: true,
+          message: 'Registration submitted successfully!',
+          data: {
+            id: result[0].id,
+            submittedAt: result[0].created_at
+          }
+        });
+
+      } catch (postError) {
+        console.error('POST handler error:', postError);
+        return res.status(500).json({ 
+          error: 'POST request failed',
+          details: postError.message
+        });
+      }
     }
 
     // Method not allowed
