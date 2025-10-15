@@ -8,6 +8,7 @@ const ClubRegistrationsAdmin = () => {
     const [adminToken, setAdminToken] = useState('');
     const [authenticated, setAuthenticated] = useState(false);
     const [updatingStatus, setUpdatingStatus] = useState(null);
+    const [deletingId, setDeletingId] = useState(null);
 
     const fetchRegistrations = async () => {
         if (!adminToken.trim()) {
@@ -83,6 +84,41 @@ const ClubRegistrationsAdmin = () => {
             setError(error.message);
         } finally {
             setUpdatingStatus(null);
+        }
+    };
+
+    const deleteRegistration = async (id) => {
+        if (!confirm('Are you sure you want to delete this registration? This action cannot be undone.')) {
+            return;
+        }
+
+        setDeletingId(id);
+        setError('');
+
+        try {
+            const response = await fetch('/api/delete-registration', {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${adminToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to delete registration');
+            }
+
+            // Remove the registration from the local state
+            setRegistrations(prev => prev.filter(reg => reg.id !== id));
+
+        } catch (error) {
+            console.error('Error deleting registration:', error);
+            setError(error.message);
+        } finally {
+            setDeletingId(null);
         }
     };
 
@@ -180,24 +216,34 @@ const ClubRegistrationsAdmin = () => {
                                         <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(registration.status)}`}>
                                             {registration.status.charAt(0).toUpperCase() + registration.status.slice(1)}
                                         </span>
-                                        {registration.status === 'pending' && (
-                                            <div className="flex gap-2">
-                                                <button
-                                                    onClick={() => updateRegistrationStatus(registration.id, 'approved')}
-                                                    disabled={updatingStatus === registration.id}
-                                                    className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded transition duration-300 disabled:bg-gray-400"
-                                                >
-                                                    {updatingStatus === registration.id ? 'Updating...' : 'Accept'}
-                                                </button>
-                                                <button
-                                                    onClick={() => updateRegistrationStatus(registration.id, 'rejected')}
-                                                    disabled={updatingStatus === registration.id}
-                                                    className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-sm rounded transition duration-300 disabled:bg-gray-400"
-                                                >
-                                                    {updatingStatus === registration.id ? 'Updating...' : 'Reject'}
-                                                </button>
-                                            </div>
-                                        )}
+                                        <div className="flex gap-2">
+                                            {registration.status === 'pending' && (
+                                                <>
+                                                    <button
+                                                        onClick={() => updateRegistrationStatus(registration.id, 'approved')}
+                                                        disabled={updatingStatus === registration.id || deletingId === registration.id}
+                                                        className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded transition duration-300 disabled:bg-gray-400"
+                                                    >
+                                                        {updatingStatus === registration.id ? 'Updating...' : 'Accept'}
+                                                    </button>
+                                                    <button
+                                                        onClick={() => updateRegistrationStatus(registration.id, 'rejected')}
+                                                        disabled={updatingStatus === registration.id || deletingId === registration.id}
+                                                        className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-sm rounded transition duration-300 disabled:bg-gray-400"
+                                                    >
+                                                        {updatingStatus === registration.id ? 'Updating...' : 'Reject'}
+                                                    </button>
+                                                </>
+                                            )}
+                                            <button
+                                                onClick={() => deleteRegistration(registration.id)}
+                                                disabled={deletingId === registration.id || updatingStatus === registration.id}
+                                                className="px-3 py-1 bg-gray-600 hover:bg-gray-700 text-white text-sm rounded transition duration-300 disabled:bg-gray-400"
+                                                title="Delete registration permanently"
+                                            >
+                                                {deletingId === registration.id ? 'Deleting...' : '🗑️ Delete'}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 

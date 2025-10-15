@@ -505,13 +505,13 @@ const JoinClubForm = () => {
                             className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
                         >
                             <option value="">Select your faculty</option>
-                            <option value="Faculty of Technology">Faculty of Technology</option>
-                            <option value="Faculty of Science">Faculty of Science</option>
-                            <option value="Faculty of Hydrocarbons and Chemistry">Faculty of Hydrocarbons and Chemistry</option>
-                            <option value="Faculty of Economics and Science">Faculty of Economics and Science</option>
-                            <option value="Faculty of Law">Faculty of Law</option>
-                            <option value="Institute of Electrical and Electronic Engineering">Institute of Electrical and Electronic Engineering</option>
-                            <option value="Other">Other</option>
+                            <option value="Faculty of Technology">1. Faculty Of Technology (FT) | كلية التكنولوجيا</option>
+                            <option value="Faculty of Science">2. Faculty Of Science (FS) | كلية العلوم</option>
+                            <option value="Faculty of Hydrocarbons and Chemistry">3. Faculty of Hydrocarbons and Chemistry (FHC) | كلية المحروقات والكيمياء</option>
+                            <option value="Faculty of Economics and Science">4. Faculty of Economics Sciences (FE) | كلية علوم الاقتصاد</option>
+                            <option value="Faculty of Law">5. Faculty Of Law | كلية الحقوق</option>
+                            <option value="Institute of Electrical and Electronic Engineering">6. Institute Of Electrical and Electronics Engineering (IGEE) | معهد هندسة الكهرباء والالكترونيك</option>
+                            <option value="Other">7. Other | أخرى</option>
                         </select>
                     </div>
 
