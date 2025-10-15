@@ -24,8 +24,6 @@ export default async function handler(req, res) {
     // Handle POST requests
     if (req.method === 'POST') {
       try {
-        console.log('POST request received');
-        
         // Check if DATABASE_URL is configured
         if (!process.env.DATABASE_URL) {
           console.error('DATABASE_URL environment variable is not set');
@@ -34,16 +32,9 @@ export default async function handler(req, res) {
           });
         }
 
-        console.log('Database URL exists, initializing connection...');
-
         // Initialize Neon database connection with dynamic import
         const { neon } = await import('@neondatabase/serverless');
         const sql = neon(process.env.DATABASE_URL);
-        
-        console.log('Database connection initialized');
-
-        // Log request body for debugging
-        console.log('Request body:', req.body);
 
         const {
           name,
@@ -58,24 +49,17 @@ export default async function handler(req, res) {
           motivation
         } = req.body;
 
-        console.log('Data extracted from request body');
-
         // Validate required fields
-        console.log('Validating required fields...');
         if (!name || !familyName || !email || !phone || !studentCardNumber || 
             !gender || !yearOfStudies || !major || !faculty || !motivation) {
-          console.log('Validation failed: missing fields');
           return res.status(400).json({ 
             error: 'All fields are required' 
           });
         }
 
-        console.log('Basic validation passed');
-
         // Validate email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-          console.log('Email validation failed');
           return res.status(400).json({ 
             error: 'Invalid email format' 
           });
@@ -83,7 +67,6 @@ export default async function handler(req, res) {
 
         // Validate gender
         if (!['male', 'female'].includes(gender)) {
-          console.log('Gender validation failed');
           return res.status(400).json({ 
             error: 'Invalid gender value' 
           });
@@ -91,13 +74,10 @@ export default async function handler(req, res) {
 
         // Validate year of studies
         if (!['L1', 'L2', 'L3', 'M1', 'M2'].includes(yearOfStudies)) {
-          console.log('Year of studies validation failed');
           return res.status(400).json({ 
             error: 'Invalid year of studies' 
           });
         }
-
-        console.log('All validations passed, checking for existing user...');
 
         // Check if email or student card number already exists
         const existingUser = await sql`
@@ -105,16 +85,11 @@ export default async function handler(req, res) {
           WHERE email = ${email} OR student_card_number = ${studentCardNumber}
         `;
 
-        console.log('Existing user check completed, found:', existingUser.length, 'records');
-
         if (existingUser.length > 0) {
-          console.log('User already exists');
           return res.status(409).json({ 
             error: 'Email or student card number already registered' 
           });
         }
-
-        console.log('Inserting new registration...');
 
         // Insert new registration
         const result = await sql`
@@ -126,8 +101,6 @@ export default async function handler(req, res) {
             ${gender}, ${yearOfStudies}, ${major}, ${faculty}, ${motivation}
           ) RETURNING id, created_at
         `;
-
-        console.log('Registration inserted successfully:', result);
 
         return res.status(201).json({
           success: true,

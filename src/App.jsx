@@ -73,7 +73,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/electrobot-rumble" element={<ElectroBotRumble />} />
         <Route path="/join" element={<JoinClub />} />
-        <Route path="/club-registrations-admin" element={<ClubRegistrationsAdmin />} />
+        <Route path="/admin" element={<ClubRegistrationsAdmin />} />
         <Route path="/electrobot-applications" element={<AdminPage />} />
         <Route path="/add-projects" element={<AddProjectsAdmin />} />
         <Route path="/add-events" element={<AddEventsAdmin />} />

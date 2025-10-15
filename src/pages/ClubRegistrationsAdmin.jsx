@@ -7,6 +7,7 @@ const ClubRegistrationsAdmin = () => {
     const [error, setError] = useState('');
     const [adminToken, setAdminToken] = useState('');
     const [authenticated, setAuthenticated] = useState(false);
+    const [updatingStatus, setUpdatingStatus] = useState(null);
 
     const fetchRegistrations = async () => {
         if (!adminToken.trim()) {
@@ -46,6 +47,43 @@ const ClubRegistrationsAdmin = () => {
     const handleLogin = (e) => {
         e.preventDefault();
         fetchRegistrations();
+    };
+
+    const updateRegistrationStatus = async (id, status) => {
+        setUpdatingStatus(id);
+        setError('');
+
+        try {
+            const response = await fetch('/api/update-registration-status', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${adminToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id, status }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to update status');
+            }
+
+            // Update the registration in the local state
+            setRegistrations(prev => 
+                prev.map(reg => 
+                    reg.id === id 
+                        ? { ...reg, status, updated_at: data.data.updated_at }
+                        : reg
+                )
+            );
+
+        } catch (error) {
+            console.error('Error updating status:', error);
+            setError(error.message);
+        } finally {
+            setUpdatingStatus(null);
+        }
     };
 
     const formatDate = (dateString) => {
@@ -138,9 +176,29 @@ const ClubRegistrationsAdmin = () => {
                                     <h3 className="text-xl font-semibold text-gray-800">
                                         {registration.name} {registration.family_name}
                                     </h3>
-                                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(registration.status)}`}>
-                                        {registration.status.charAt(0).toUpperCase() + registration.status.slice(1)}
-                                    </span>
+                                    <div className="flex items-center gap-2">
+                                        <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(registration.status)}`}>
+                                            {registration.status.charAt(0).toUpperCase() + registration.status.slice(1)}
+                                        </span>
+                                        {registration.status === 'pending' && (
+                                            <div className="flex gap-2">
+                                                <button
+                                                    onClick={() => updateRegistrationStatus(registration.id, 'approved')}
+                                                    disabled={updatingStatus === registration.id}
+                                                    className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded transition duration-300 disabled:bg-gray-400"
+                                                >
+                                                    {updatingStatus === registration.id ? 'Updating...' : 'Accept'}
+                                                </button>
+                                                <button
+                                                    onClick={() => updateRegistrationStatus(registration.id, 'rejected')}
+                                                    disabled={updatingStatus === registration.id}
+                                                    className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-sm rounded transition duration-300 disabled:bg-gray-400"
+                                                >
+                                                    {updatingStatus === registration.id ? 'Updating...' : 'Reject'}
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
