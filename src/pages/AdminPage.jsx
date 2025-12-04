@@ -1,124 +1,176 @@
-import React, { useState, useEffect } from 'react';
-import { db } from '../firebase';
-import { collection, getDocs, query, where, doc, updateDoc } from 'firebase/firestore';
-import Header from '../components/Header/Index';
-import AdminPanel from './AdminPanel';
+import { useState, useEffect } from "react";
+import Header from "../components/Header/Index";
+import FormBuilder from "../components/Admin/FormBuilder";
+import ActiveFormsList from "../components/Admin/ActiveFormsList";
+import SubmissionsViewer from "../components/Admin/SubmissionsViewer";
 
 const AdminPage = () => {
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("add-new-form");
+  const [selectedForm, setSelectedForm] = useState(null);
+  const [tokenInput, setTokenInput] = useState("");
+  const [loginError, setLoginError] = useState("");
 
-    useEffect(() => {
-        const tokenData = localStorage.getItem('adminToken');
-        if (tokenData) {
-            const tokenObj = JSON.parse(tokenData);
-            if (new Date(tokenObj.expiresAt) > new Date()) {
-                setLoggedIn(true);
-            } else {
-                localStorage.removeItem('adminToken');
-            }
-        }
-        setLoading(false);
-    }, []);
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        setError('');
-        try {
-            const usersRef = collection(db, 'users');
-            const q = query(usersRef, where('username', '==', username), where('password', '==', password));
-            const querySnapshot = await getDocs(q);
-            if (querySnapshot.empty) {
-                setError('Invalid username or password');
-                return;
-            }
-            let userDoc = null;
-            querySnapshot.forEach((doc) => {
-                userDoc = doc.data();
-            });
-            if (!userDoc.isAdmin) {
-                setError('Access denied: not an admin');
-                return;
-            }
-            const token = Math.random().toString(36).substring(2);
-            const expiresAt = new Date();
-            expiresAt.setHours(expiresAt.getHours() + 4);
-            const tokenObj = { token, expiresAt };
-            localStorage.setItem('adminToken', JSON.stringify(tokenObj));
-            setLoggedIn(true);
-        } catch (err) {
-            console.error('Login error:', err);
-            setError('An error occurred during login.');
-        }
-    };
-
-    const handleLogout = () => {
-        localStorage.removeItem('adminToken');
-        setLoggedIn(false);
-    };
-
-    if (loading) return <p>Loading...</p>;
-
-    if (!loggedIn) {
-        return (
-            <div className="flex flex-col mx-4 md:mx-20 my-10 items-center">
-                <Header hidden={true} className="mb-5" />
-                <div className="w-full max-w-md bg-white p-6 rounded shadow-md">
-                    <h1 className="text-center text-2xl font-bold text-[#70a939]">Admin Login</h1>
-                    {error && <p className="text-red-500 text-center mt-2">{error}</p>}
-                    <form onSubmit={handleLogin} className="mt-4 space-y-4">
-                        <div>
-                            <label className="block mb-1">Username:</label>
-                            <input
-                                type="text"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                placeholder="Enter username"
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
-                            />
-                        </div>
-                        <div>
-                            <label className="block mb-1">Password:</label>
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Enter password"
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#70a939]"
-                            />
-                        </div>
-                        <button
-                            type="submit"
-                            className="w-full bg-[#70a939] hover:bg-green-600 text-white font-semibold py-2 px-4 rounded transition duration-300"
-                        >
-                            Login
-                        </button>
-                    </form>
-                </div>
-            </div>
-        );
+  useEffect(() => {
+    const tokenData = localStorage.getItem("adminToken");
+    if (tokenData) {
+      const tokenObj = JSON.parse(tokenData);
+      if (new Date(tokenObj.expiresAt) > new Date()) {
+        setLoggedIn(true);
+      } else {
+        localStorage.removeItem("adminToken");
+      }
     }
+    setLoading(false);
+  }, []);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    if (!tokenInput.trim()) return;
+    setLoginError("");
+
+    try {
+      const response = await fetch("/api/validate-token", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: tokenInput.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.valid) {
+        const expiresAt = new Date();
+        expiresAt.setHours(expiresAt.getHours() + 24);
+        const tokenObj = { token: tokenInput.trim(), expiresAt };
+        localStorage.setItem("adminToken", JSON.stringify(tokenObj));
+        setLoggedIn(true);
+      } else {
+        setLoginError("Invalid Admin Token");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setLoginError("Login failed. Please try again.");
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    setLoggedIn(false);
+    window.location.reload();
+  };
+
+  if (loading) return <p>Loading...</p>;
+
+  if (!loggedIn) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <div className="bg-white p-8 rounded shadow-md w-full max-w-md mx-4">
+          <h2 className="text-2xl font-bold mb-6 text-center text-[#70a939]">
+            Admin Access
+          </h2>
+          {loginError && (
+            <div className="mb-4 p-2 text-sm text-red-600 bg-red-100 border border-red-400 rounded">
+              {loginError}
+            </div>
+          )}
+          <form onSubmit={handleLogin}>
+            <div className="mb-4">
+              <label className="block text-gray-700 font-bold mb-2">
+                Admin Token
+              </label>
+              <input
+                type="password"
+                className="w-full p-2 border border-gray-300 rounded"
+                value={tokenInput}
+                onChange={(e) => setTokenInput(e.target.value)}
+                placeholder="Enter secret token..."
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-[#70a939] hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "add-new-form":
+        return <FormBuilder />;
+      case "active-forms":
+        return (
+          <ActiveFormsList
+            onViewSubmissions={(form) => {
+              setSelectedForm(form);
+              setActiveTab("view-submissions");
+            }}
+          />
+        );
+      case "view-submissions":
+        return (
+          <SubmissionsViewer
+            form={selectedForm}
+            onBack={() => setActiveTab("active-forms")}
+          />
+        );
+      default:
+        return <FormBuilder />;
+    }
+  };
+
+  // eslint-disable-next-line react/prop-types
+  const TabButton = ({ id, label }) => {
+    if (id === "view-submissions" && activeTab !== "view-submissions")
+      return null; // Only show if active
 
     return (
-        <div className="flex flex-col mx-4 md:mx-20 my-10">
-            <Header hidden={true} className="mb-5" />
-            <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold text-[#70a939]">Admin Panel</h1>
-                <button
-                    onClick={handleLogout}
-                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
-                >
-                    Logout
-                </button>
-            </div>
-            <AdminPanel />
-        </div>
+      <button
+        onClick={() => setActiveTab(id)}
+        className={`px-4 py-2 font-semibold rounded-t-lg transition-colors ${
+          activeTab === id
+            ? "bg-[#70a939] text-white"
+            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+        }`}
+      >
+        {label}
+      </button>
     );
+  };
+
+  return (
+    <div className="flex flex-col mx-4 md:mx-20 my-10">
+      <Header hidden={true} className="mb-5" />
+
+      <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold text-[#70a939] mb-4 md:mb-0">
+          Admin Dashboard
+        </h1>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+          >
+            Clear Session
+          </button>
+        </div>
+      </div>
+
+      {/* Tab Navigation */}
+      <div className="flex flex-wrap gap-2 border-b border-gray-300 mb-6">
+        <TabButton id="add-new-form" label="Add New Form" />
+        <TabButton id="active-forms" label="Active Forms" />
+      </div>
+
+      {/* Content Area */}
+      <div className="min-h-[500px]">{renderContent()}</div>
+    </div>
+  );
 };
 
 export default AdminPage;

@@ -11,12 +11,9 @@ import Projects from "./components/Projects/Index";
 import Footer from "./components/Footer/Index";
 import CommunityDiscord from "./components/communityDiscord/Index";
 import HeroImage from "./components/HeroImage";
-import ElectroBotRumble from "./pages/ElectroBotRumble";
 import JoinClub from "./pages/JoinClub";
-import ClubRegistrationsAdmin from "./pages/ClubRegistrationsAdmin";
 import AdminPage from "./pages/AdminPage";
-import AddProjectsAdmin from "./pages/AddProjectsAdmin";
-import AddEventsAdmin from "./pages/AddEventsAdmin";
+import PublicFormView from "./pages/PublicFormView";
 import ScrollingBanner from "./components/ScrollingBanner";
 function Home() {
   const headerRef = useRef(null);
@@ -71,12 +68,9 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/electrobot-rumble" element={<ElectroBotRumble />} />
         <Route path="/join" element={<JoinClub />} />
-        <Route path="/admin" element={<ClubRegistrationsAdmin />} />
-        <Route path="/electrobot-applications" element={<AdminPage />} />
-        <Route path="/add-projects" element={<AddProjectsAdmin />} />
-        <Route path="/add-events" element={<AddEventsAdmin />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/forms/:formId" element={<PublicFormView />} />
       </Routes>
     </Router>
   );

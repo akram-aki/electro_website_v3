@@ -2,8 +2,6 @@ import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Destinations from "./Destinations";
 import ProjectCard from "./ProjectCard";
-import { db } from "../../firebase";
-import { collection, getDocs } from "firebase/firestore";
 
 const Index = () => {
   return <HorizontalScrollCarousel />;
@@ -43,8 +41,15 @@ const HorizontalScrollCarousel = () => {
   const progress = isMobile ? 0 : transformProgress;
 
   return (
-    <section ref={targetRef} className={`relative ${isMobile ? "h-auto" : "h-[400vh]"}`}>
-      <div className={`sticky top-0 flex ${isMobile ? "flex-col" : "h-screen w-full"}`}>
+    <section
+      ref={targetRef}
+      className={`relative ${isMobile ? "h-auto" : "h-[400vh]"}`}
+    >
+      <div
+        className={`sticky top-0 flex ${
+          isMobile ? "flex-col" : "h-screen w-full"
+        }`}
+      >
         {/* Progress Bar */}
         <div className="bg-[#e9e8e4] relative overflow-hidden border border-white h-7 items-center mt-12 w-full mx-10 p-1 rounded-full hidden md:flex">
           <motion.div
@@ -52,7 +57,10 @@ const HorizontalScrollCarousel = () => {
             transition={{ ease: "easeOut", duration: 100 }}
             className="w-full flex justify-end absolute right-full p-2 rounded-xl bg-[#262625]"
           >
-            <motion.div style={{ rotate }} className="z-10 bg-white text-black flex items-center justify-center w-4 h-4 rounded-full">
+            <motion.div
+              style={{ rotate }}
+              className="z-10 bg-white text-black flex items-center justify-center w-4 h-4 rounded-full"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -78,7 +86,9 @@ const HorizontalScrollCarousel = () => {
             className="text-[#b5b5b5] font-bold right-12 top-28 absolute hidden md:block"
             onUpdate={() =>
               setCount(
-                progress.current < 50 ? Math.floor(progress.current) : Math.ceil(progress.current)
+                progress.current < 50
+                  ? Math.floor(progress.current)
+                  : Math.ceil(progress.current)
               )
             }
           >
@@ -87,10 +97,16 @@ const HorizontalScrollCarousel = () => {
           </motion.p>
         )}
 
-        <Destinations className="gap-3 absolute top-28 left-12 hidden md:flex" count={count} type="Eventssas" />
+        <Destinations
+          className="gap-3 absolute top-28 left-12 hidden md:flex"
+          count={count}
+          type="Eventssas"
+        />
 
         <div
-          className={`absolute left-0 top-20 w-full ${isMobile ? "h-auto relative" : "h-[88vh]"} flex items-center justify-start overflow-hidden`}
+          className={`absolute left-0 top-20 w-full ${
+            isMobile ? "h-auto relative" : "h-[88vh]"
+          } flex items-center justify-start overflow-hidden`}
         >
           <Projects style={{ x: x2 }} />
         </div>
@@ -108,7 +124,7 @@ const Projects = ({ ...attributes }) => {
       try {
         const querySnapshot = await getDocs(collection(db, "projects"));
         // Map only projectTitle and projectAuthor from each document
-        const projectsFetched = querySnapshot.docs.map(doc => ({
+        const projectsFetched = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           projectTitle: doc.data().projectTitle,
           projectAuthor: doc.data().projectAuthor,
@@ -128,7 +144,10 @@ const Projects = ({ ...attributes }) => {
   return (
     <>
       {/* Desktop: Horizontal Carousel */}
-      <motion.div className="hidden md:flex flex-shrink-0 gap-16 pr-16 min-w-max" {...attributes}>
+      <motion.div
+        className="hidden md:flex flex-shrink-0 gap-16 pr-16 min-w-max"
+        {...attributes}
+      >
         {loading ? (
           <p>Loading projects...</p>
         ) : (
@@ -140,7 +159,11 @@ const Projects = ({ ...attributes }) => {
                 opacity: 1,
                 y: 0,
                 scale: 1,
-                transition: { type: "spring", stiffness: 50, delay: index * 0.1 },
+                transition: {
+                  type: "spring",
+                  stiffness: 50,
+                  delay: index * 0.1,
+                },
               }}
               viewport={{ once: true, margin: "0px 0px -100px 0px" }}
               whileHover={{ scale: 1.02 }}
@@ -170,7 +193,11 @@ const Projects = ({ ...attributes }) => {
                 opacity: 1,
                 y: 0,
                 scale: 1,
-                transition: { type: "spring", stiffness: 50, delay: index * 0.1 },
+                transition: {
+                  type: "spring",
+                  stiffness: 50,
+                  delay: index * 0.1,
+                },
               }}
               viewport={{ once: true, margin: "0px 0px -100px 0px" }}
               whileHover={{ scale: 1.02 }}
