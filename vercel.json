@@ -1,19 +1,13 @@
 {
-    "redirects": [
-        {
-            "source": "/rumble2025",
-            "destination": "/forms/0723990f-543d-4865-ba9e-0ea1690fb58e",
-            "permanent": false
-        }
-    ],
-    "rewrites": [
-        {
-            "source": "/api/(.*)",
-            "destination": "/api/$1"
-        },
-        {
-            "source": "/((?!api/|.*\\..*).*)",
-            "destination": "/index.html"
-        }
-    ]
+  "redirects": [],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/((?!api/|@|.*\\..*).*)",
+      "destination": "/index.html"
+    }
+  ]
 }

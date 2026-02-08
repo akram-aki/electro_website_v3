@@ -11,9 +11,12 @@ import Projects from "./components/Projects/Index";
 import Footer from "./components/Footer/Index";
 import CommunityDiscord from "./components/communityDiscord/Index";
 import HeroImage from "./components/HeroImage";
+import Rumble2025 from "./pages/Rumble2025";
 import JoinClub from "./pages/JoinClub";
+import ClubRegistrationsAdmin from "./pages/ClubRegistrationsAdmin";
 import AdminPage from "./pages/AdminPage";
-import PublicFormView from "./pages/PublicFormView";
+// import AddProjectsAdmin from "./pages/AddProjectsAdmin";
+// import AddEventsAdmin from "./pages/AddEventsAdmin";
 import ScrollingBanner from "./components/ScrollingBanner";
 function Home() {
   const headerRef = useRef(null);
@@ -68,9 +71,11 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/rumble2026" element={<Rumble2025 stage="Elimination Bracket" type="double" />} />
         <Route path="/join" element={<JoinClub />} />
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/forms/:formId" element={<PublicFormView />} />
+        {/* <Route path="/add-projects" element={<AddProjectsAdmin />} /> */}
+        {/* <Route path="/add-events" element={<AddEventsAdmin />} /> */}
       </Routes>
     </Router>
   );

@@ -1,0 +1,182 @@
+{
+  "upper": [
+    {
+      "id": 0,
+      "name": "random",
+      "nextMatchId": 4,
+      "nextLooserMatchId": 7,
+      "tournamentRoundText": "1",
+      "state": "scheduled",
+      "participants": [
+        {
+          "id": 0,
+          "resultText": null,
+          "isWinner": false,
+          "status": null,
+          "name": "T1"
+        },
+        {
+          "id": 1,
+          "resultText": null,
+          "isWinner": false,
+          "status": null,
+          "name": "T2"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "random",
+      "nextMatchId": 4,
+      "nextLooserMatchId": 7,
+      "tournamentRoundText": "1",
+      "state": "scheduled",
+      "participants": [
+        {
+          "id": 2,
+          "resultText": null,
+          "isWinner": false,
+          "status": null,
+          "name": "T3"
+        },
+        {
+          "id": 3,
+          "resultText": null,
+          "isWinner": false,
+          "status": null,
+          "name": "T4"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "random",
+      "nextMatchId": 5,
+      "nextLooserMatchId": 8,
+      "tournamentRoundText": "1",
+      "state": "scheduled",
+      "participants": [
+        {
+          "id": 4,
+          "resultText": null,
+          "isWinner": false,
+          "status": null,
+          "name": "T5"
+        },
+        {
+          "id": 5,
+          "resultText": null,
+          "isWinner": false,
+          "status": null,
+          "name": "T6"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "random",
+      "nextMatchId": 5,
+      "nextLooserMatchId": 8,
+      "tournamentRoundText": "1",
+      "state": "scheduled",
+      "participants": [
+        {
+          "id": 6,
+          "resultText": null,
+          "isWinner": false,
+          "status": null,
+          "name": "T7"
+        },
+        {
+          "id": 7,
+          "resultText": null,
+          "isWinner": false,
+          "status": null,
+          "name": "T8"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "random",
+      "nextMatchId": 6,
+      "nextLooserMatchId": 9,
+      "tournamentRoundText": "2",
+      "state": "scheduled",
+      "participants": []
+    },
+    {
+      "id": 5,
+      "name": "random",
+      "nextMatchId": 6,
+      "nextLooserMatchId": 10,
+      "tournamentRoundText": "2",
+      "state": "scheduled",
+      "participants": []
+    },
+    {
+      "id": 6,
+      "name": "random",
+      "nextMatchId": 13,
+      "nextLooserMatchId": 12,
+      "tournamentRoundText": "3",
+      "state": "scheduled",
+      "participants": []
+    },
+    {
+      "id": 13,
+      "name": "Grand Final",
+      "state": "scheduled",
+      "participants": []
+    }
+  ],
+  "lower": [
+    {
+      "id": 7,
+      "name": "Lower R1",
+      "nextMatchId": 9,
+      "nextLooserMatchId": null,
+      "tournamentRoundText": "1",
+      "state": "scheduled",
+      "participants": []
+    },
+    {
+      "id": 8,
+      "name": "Lower R1",
+      "nextMatchId": 10,
+      "nextLooserMatchId": null,
+      "tournamentRoundText": "1",
+      "state": "scheduled",
+      "participants": []
+    },
+    {
+      "id": 9,
+      "name": "Lower R3",
+      "nextMatchId": 11,
+      "state": "scheduled",
+      "participants": []
+    },
+    {
+      "id": 10,
+      "name": "Lower R4",
+      "nextMatchId": 11,
+      "state": "scheduled",
+      "participants": []
+    },
+    {
+      "id": 11,
+      "name": "Lower R5",
+      "nextMatchId": 12,
+      "state": "scheduled",
+      "participants": []
+    },
+    {
+      "id": 12,
+      "name": "Lower R6",
+      "nextMatchId": 13,
+      "state": "scheduled",
+      "participants": []
+    }
+  ],
+  "matchIdCounter": 14
+}

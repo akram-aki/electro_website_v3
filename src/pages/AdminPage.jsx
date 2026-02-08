@@ -3,6 +3,8 @@ import Header from "../components/Header/Index";
 import FormBuilder from "../components/Admin/FormBuilder";
 import ActiveFormsList from "../components/Admin/ActiveFormsList";
 import SubmissionsViewer from "../components/Admin/SubmissionsViewer";
+import TournamentCreator from "../components/Admin/TournamentCreator";
+import ActiveTournament from "../components/Admin/ActiveTournament";
 
 const AdminPage = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -103,6 +105,10 @@ const AdminPage = () => {
     switch (activeTab) {
       case "add-new-form":
         return <FormBuilder />;
+      case "create-tournament":
+        return <TournamentCreator />;
+      case "active-tournament":
+        return <ActiveTournament />;
       case "active-forms":
         return (
           <ActiveFormsList
@@ -164,6 +170,8 @@ const AdminPage = () => {
       {/* Tab Navigation */}
       <div className="flex flex-wrap gap-2 border-b border-gray-300 mb-6">
         <TabButton id="add-new-form" label="Add New Form" />
+        <TabButton id="create-tournament" label="Create Tournament" />
+        <TabButton id="active-tournament" label="Active Tournament" />
         <TabButton id="active-forms" label="Active Forms" />
       </div>
 
