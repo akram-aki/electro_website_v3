@@ -40,10 +40,6 @@ const Rumble2025 = ({ type = 'double' }) => {
       }
     };
     fetchTournament();
-
-    // Poll every 10 seconds for live updates
-    const interval = setInterval(fetchTournament, 10000);
-    return () => clearInterval(interval);
   }, []);
 
   if (loading) {
